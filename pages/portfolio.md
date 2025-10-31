@@ -19,11 +19,55 @@ title: Portfolio
   seriesOrder={["Current","Forecast"]}
 />
 
+<Slider
+  name="month"
+  title="Month"
+  data={months_slider}
+  range="month_idx"
+  defaultValue="max_idx"
+  maxColumn="max_idx"
+  minColumn="min_idx"
+  size="large"
+/>
+
+<AreaMap
+  data={exposure_map}
+  title="Exposure by Country"
+  legendType="scalar"
+  areaCol="country_code"
+  geoId="iso_a2"
+  value=exposure_usd
+  geoJsonUrl="https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_0_countries.geojson"
+  height={480}
+/>
+
 ```sql metrics
   select 
     *
   from mrt_exposure_by_region
   order by total_exposure_usd desc 
+```
+
+```sql months_slider
+  with months as (
+    select distinct date_trunc('month', cast(exposure_month as timestamp)) as month
+    from mrt_exposure_by_region
+    where 1=1
+      and cast(fund_id as varchar) = '${inputs.fund.value}'
+      and cast(stage_id as varchar) = '${inputs.stage.value}'
+      and region = '${inputs.region.value}'
+      and country_code = '${inputs.country.value}'
+  ), ordered as (
+    select month, row_number() over (order by month) as month_idx
+    from months
+  )
+  select
+    month,
+    month_idx,
+    max(month_idx) over () as max_idx,
+    min(month_idx) over () as min_idx
+  from ordered
+  order by month
 ```
 
 ```sql funds
@@ -100,4 +144,26 @@ title: Portfolio
   union all
   select * from current_series
   order by month asc
+```
+
+```sql exposure_map
+  with base as (
+    select
+      date_trunc('month', cast(exposure_month as timestamp)) as month,
+      country_code,
+      sum(coalesce(total_exposure_usd,0)) as exposure_usd
+    from mrt_exposure_by_region
+    where 1=1
+      and cast(fund_id as varchar) = '${inputs.fund.value}'
+      and cast(stage_id as varchar) = '${inputs.stage.value}'
+    group by 1,2
+  ), months as (
+    select distinct month from base
+  ), ordered as (
+    select month, row_number() over (order by month) as month_idx from months
+  )
+  select b.country_code, b.exposure_usd
+  from base b
+  join ordered o on o.month = b.month
+  where o.month_idx = ${inputs.month}
 ```
