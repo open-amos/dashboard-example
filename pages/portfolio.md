@@ -23,10 +23,11 @@ title: Portfolio
   name="month"
   title="Month"
   data={months_slider}
-  range="month_idx"
-  defaultValue="max_idx"
-  maxColumn="max_idx"
-  minColumn="min_idx"
+  range="excel_serial"
+  defaultValue="max_serial"
+  maxColumn="max_serial"
+  minColumn="min_serial"
+  fmt="mmm yyyy"
   size="large"
 />
 
@@ -50,7 +51,7 @@ title: Portfolio
 
 ```sql months_slider
   with months as (
-    select distinct date_trunc('month', cast(exposure_month as timestamp)) as month
+    select distinct date_trunc('month', cast(exposure_month as date)) as month
     from mrt_exposure_by_region
     where 1=1
       and cast(fund_id as varchar) = '${inputs.fund.value}'
@@ -58,14 +59,18 @@ title: Portfolio
       and region = '${inputs.region.value}'
       and country_code = '${inputs.country.value}'
   ), ordered as (
-    select month, row_number() over (order by month) as month_idx
+    select 
+      month, 
+      row_number() over (order by month) as month_idx,
+      date_diff('day', date '1899-12-30', month) as excel_serial
     from months
   )
   select
     month,
     month_idx,
-    max(month_idx) over () as max_idx,
-    min(month_idx) over () as min_idx
+    excel_serial,
+    max(excel_serial) over () as max_serial,
+    min(excel_serial) over () as min_serial
   from ordered
   order by month
 ```
@@ -149,7 +154,7 @@ title: Portfolio
 ```sql exposure_map
   with base as (
     select
-      date_trunc('month', cast(exposure_month as timestamp)) as month,
+      date_trunc('month', cast(exposure_month as date)) as month,
       country_code,
       sum(coalesce(total_exposure_usd,0)) as exposure_usd
     from mrt_exposure_by_region
@@ -157,13 +162,10 @@ title: Portfolio
       and cast(fund_id as varchar) = '${inputs.fund.value}'
       and cast(stage_id as varchar) = '${inputs.stage.value}'
     group by 1,2
-  ), months as (
-    select distinct month from base
-  ), ordered as (
-    select month, row_number() over (order by month) as month_idx from months
+  ), selected as (
+    select date_trunc('month', cast(date '1899-12-30' + (${inputs.month} * interval 1 day) as date)) as selected_month
   )
   select b.country_code, b.exposure_usd
   from base b
-  join ordered o on o.month = b.month
-  where o.month_idx = ${inputs.month}
+  where b.month = (select selected_month from selected)
 ```
