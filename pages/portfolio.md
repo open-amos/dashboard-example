@@ -24,7 +24,7 @@ title: Portfolio
   title="Month"
   data={months_slider}
   range="excel_serial"
-  defaultValue="max_serial"
+  defaultValue="min_serial"
   maxColumn="max_serial"
   minColumn="min_serial"
   fmt="mmm yyyy"
