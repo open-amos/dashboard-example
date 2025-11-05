@@ -47,14 +47,14 @@ title: Portfolio
 ```sql metrics
   select 
     *
-  from mrt_exposure_by_region
+  from metrics_exposure_by_region
   order by total_exposure_usd desc 
 ```
 
 ```sql months_slider
   with months as (
     select distinct date_trunc('month', cast(exposure_month as date)) as month
-    from mrt_exposure_by_region
+    from metrics_exposure_by_region
     where 1=1
       and cast(fund_id as varchar) = '${inputs.fund.value}'
       and cast(stage_id as varchar) = '${inputs.stage.value}'
@@ -81,7 +81,7 @@ title: Portfolio
   select distinct
     fund_id,
     fund_name
-  from mrt_exposure_by_region
+  from metrics_exposure_by_region
   order by fund_name
 ```
 
@@ -89,13 +89,13 @@ title: Portfolio
   select distinct
     stage_id,
     stage_name
-  from mrt_exposure_by_region
+  from metrics_exposure_by_region
   order by stage_name
 ```
 ```sql regions
   select distinct
     region
-  from mrt_exposure_by_region
+  from metrics_exposure_by_region
   order by region
 ```
 
@@ -103,7 +103,7 @@ title: Portfolio
   select distinct
     country_code,
     country_name
-  from mrt_exposure_by_region
+  from metrics_exposure_by_region
   where country_code is not null
     and country_name is not null
     and region = '${inputs.region.value}'
@@ -122,7 +122,7 @@ title: Portfolio
       closed_pipeline_usd,
       total_exposure_usd,
       period_type
-    from mrt_exposure_by_region
+    from metrics_exposure_by_region
     where 1=1
       and cast(fund_id as varchar) = '${inputs.fund.value}'
       and cast(stage_id as varchar) = '${inputs.stage.value}'
@@ -163,7 +163,7 @@ title: Portfolio
       date_trunc('month', cast(exposure_month as date)) as month,
       country_code,
       sum(coalesce(total_exposure_usd,0)) as exposure
-    from mrt_exposure_by_region
+    from metrics_exposure_by_region
     where 1=1
       and cast(fund_id as varchar) = '${inputs.fund.value}'
       and cast(stage_id as varchar) = '${inputs.stage.value}'
