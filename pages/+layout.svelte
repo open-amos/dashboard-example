@@ -7,8 +7,6 @@
 
 <EvidenceDefaultLayout {data} logo="/amos.png" 
 							  neverShowQueries={true}
-							  
-							  githubRepo="https://github.com/open-amos"
-							  fullWidth=true> 
+							  githubRepo="https://github.com/open-amos"> 
 	<slot slot="content" />
 </EvidenceDefaultLayout> 
