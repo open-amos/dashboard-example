@@ -2,6 +2,10 @@
 title: Portfolio
 ---
 
+This page demonstrates the kind of analytical insights we can get from a data warehouse where deal pipeline and portfolio data are reconciled.
+
+## Forecast the impact of upcoming deals on your portfolio
+
 <Dropdown data={funds} name=fund value=fund_id label=fund_name defaultValue="ALL" />
 <Dropdown data={stages} name=stage value=stage_id label=stage_name defaultValue="ALL" />
 <Dropdown data={regions} name=region value=region label=region defaultValue="All Regions" />
