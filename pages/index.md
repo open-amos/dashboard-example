@@ -1,56 +1,58 @@
 ---
-title: Welcome to Evidence
+title: Welcome to your fund's dashboard
 ---
 
-<Details title='How to edit this page'>
 
-  This page can be found in your project at `/pages/index.md`. Make a change to the markdown file and save it to see the change take effect in your browser.
-</Details>
+This example dashboard is built on top of AMOS, the open-source data platform for private markets. It uses the sample data provided in the AMOS Source Example project:
 
-```sql categories
-  select
-      category
-  from needful_things.orders
-  group by category
-```
+## Connected sources
 
-<Dropdown data={categories} name=category value=category>
-    <DropdownOption value="%" valueLabel="All Categories"/>
-</Dropdown>
+<div class="mx-auto max-w-5xl p-0">
 
-<Dropdown name=year>
-    <DropdownOption value=% valueLabel="All Years"/>
-    <DropdownOption value=2019/>
-    <DropdownOption value=2020/>
-    <DropdownOption value=2021/>
-</Dropdown>
+  <!-- Responsive grid: 1 column on small, 2 on md+ -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4 mb-4">
+    <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm px-5 py-4 flex items-center gap-3">
+      <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-300">CRM</span>
+      <div>
+        <div class="font-semibold">Deal Pipeline</div>
+        <div class="text-xs text-gray-500">25 deals</div>
+      </div>
+    </div>
+    <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm px-5 py-4 flex items-center gap-3">
+      <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-300">PM</span>
+      <div>
+        <div class="font-semibold">Portfolio Management</div>
+        <div class="text-xs text-gray-500">8 PE / 11 PC investments</div>
+      </div>
+    </div>
+    <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm px-5 py-4 flex items-center gap-3">
+      <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50 text-amber-600 dark:bg-amber-900/30 dark:text-amber-300">FA</span>
+      <div>
+        <div class="font-semibold">Fund Admin</div>
+        <div class="text-xs text-gray-500">6 funds / 16 investors</div>
+      </div>
+    </div>
+    <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm px-5 py-4 flex items-center gap-3">
+      <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-sky-50 text-sky-600 dark:bg-sky-900/30 dark:text-sky-300">AC</span>
+      <div>
+        <div class="font-semibold">Accounting</div>
+        <div class="text-xs text-gray-500">24 journal entries</div>
+      </div>
+    </div>
+  </div>
+</div>
 
-```sql orders_by_category
-  select 
-      date_trunc('month', order_datetime) as month,
-      sum(sales) as sales_usd,
-      category
-  from needful_things.orders
-  where category like '${inputs.category.value}'
-  and date_part('year', order_datetime) like '${inputs.year.value}'
-  group by all
-  order by sales_usd desc
-```
+## Unified data model, 360° metrics
 
-<BarChart
-    data={orders_by_category}
-    title="Sales by Month, {inputs.category.label}"
-    x=month
-    y=sales_usd
-    series=category
-/>
+The AMOS Core project provides a canonical model for private markets that defines the standard entities and relationships between them. It includes a set of metrics and KPIs that are common to all funds. This allows you to use the same metrics and KPIs across all your funds, regardless of the data source or system.
 
-## What's Next?
-- [Connect your data sources](settings)
-- Edit/add markdown files in the `pages` folder
-- Deploy your project with [Evidence Cloud](https://evidence.dev/cloud)
+## Customize and extend
 
-## Get Support
-- Message us on [Slack](https://slack.evidence.dev/)
-- Read the [Docs](https://docs.evidence.dev/)
-- Open an issue on [Github](https://github.com/evidence-dev/evidence)
+Connect your own systems to the AMOS data platform. Add your ESG data, market data, and other data sources. AMOS is the central layer that connects your data and systems into a single, consistent layer of truth, providing ready-made pipelines, models, and metrics for your fund data.
+
+## Next steps
+
+- Explore the [AMOS documentation](https://docs.amos.tech) to learn more about the AMOS data platform.
+- Explore the [AMOS Source Example](https://github.com/open-amos/source-example) to learn more about the sample data and models.
+- Explore the [AMOS Core](https://github.com/open-amos/core) to learn more about the canonical model.
+- Explore the [AMOS Starter](https://github.com/open-amos/starter) to learn more about the orchestrator.
