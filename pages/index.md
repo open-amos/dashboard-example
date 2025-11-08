@@ -132,7 +132,7 @@ AMOS provides an AI-ready semantic layer through AMOS Core, allowing language mo
 
 You can connect AI copilots or custom LLM applications to AMOS via MCP endpoints. These endpoints expose the same unified schema and metrics used across the dashboard. This ensures your assistants understand entities like funds, deals, exposures, and investors in consistent business terms, and provide verifiable answers backed by the data.
 
-<LinkButton url='/components/ui/link-button'>
+<LinkButton url='/portfolio'>
   Chat with an AI assistant
 </LinkButton>
 
