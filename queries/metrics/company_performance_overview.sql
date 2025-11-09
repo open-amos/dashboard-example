@@ -7,7 +7,4 @@ select
     primary_country, primary_industry,
     reporting_currency
 from metrics_company_performance
-where (company_id = '${inputs.company_id.value}' 
-       or '${inputs.company_id.value}' = 'ALL' 
-       or '${inputs.company_id.value}' is null)
 order by period_end_date desc, company_name

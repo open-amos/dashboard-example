@@ -4,11 +4,5 @@ select
     cashflow_amount, direction, signed_amount,
     currency_code, fx_rate
 from metrics_returns_cashflows
-where (fund_id = '${inputs.fund_id.value}' 
-       or '${inputs.fund_id.value}' = 'ALL' 
-       or '${inputs.fund_id.value}' is null)
-  and (cashflow_date >= '${inputs.start_date.value}' 
-       or '${inputs.start_date.value}' is null)
-  and (cashflow_date <= '${inputs.end_date.value}' 
-       or '${inputs.end_date.value}' is null)
+where '${inputs.fund_id.value}' = 'ALL' or fund_id = '${inputs.fund_id.value}'
 order by cashflow_date
