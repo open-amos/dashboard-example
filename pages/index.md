@@ -63,9 +63,15 @@ Connect your own systems to the AMOS data platform. Add your ESG data, market da
 
 <Alert status="info">A use case: Acme Capital invests in multiple industries and regions, while having to comply with binding exposure limits based on total investor commitments. In order to stay on track and anticipate compliance risks, the Acme team has to reconcile data from their CRM, portfolio management system and fund administrator. Without AMOS, it's a manual, error-prone process that takes days to complete. With AMOS, they can just keep an eye on the built-in metrics to track and forecast exposure in real time, and report directly to their investors. They are gaining time, clarity and confidence in their investment decisions.</Alert>
 
-<Dropdown data={funds} name=fund value=fund_id label=fund_name defaultValue="ALL" />
-<Dropdown data={stages} name=stage value=stage_id label=stage_name defaultValue="ALL" />
-<Dropdown data={regions} name=region value=region label=region defaultValue="All Regions" />
+<Dropdown data={funds} name=fund value=fund_id label=fund_name defaultValue="ALL">
+  <DropdownOption value="ALL" valueLabel="All Funds" />
+</Dropdown>
+<Dropdown data={stages} name=stage value=stage_id label=stage_name defaultValue="ALL">
+  <DropdownOption value="ALL" valueLabel="All Stages" />
+</Dropdown>
+<Dropdown data={regions} name=region value=region label=region defaultValue="ALL">
+  <DropdownOption value="ALL" valueLabel="All Regions" />
+</Dropdown>
 <Dropdown data={countries} name=country value=country_code label=country_name defaultValue="ALL">
   <DropdownOption value="ALL" valueLabel="All Countries" />
 </Dropdown>

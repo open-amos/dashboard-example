@@ -15,9 +15,15 @@ queries:
 
 ## Forecast the impact of upcoming deals on your portfolio
 
-<Dropdown data={funds} name=fund value=fund_id label=fund_name defaultValue="ALL" />
-<Dropdown data={stages} name=stage value=stage_id label=stage_name defaultValue="ALL" />
-<Dropdown data={regions} name=region value=region label=region defaultValue="All Regions" />
+<Dropdown data={funds} name=fund value=fund_id label=fund_name defaultValue="ALL">
+  <DropdownOption value="ALL" valueLabel="All Funds" />
+</Dropdown>
+<Dropdown data={stages} name=stage value=stage_id label=stage_name defaultValue="ALL">
+  <DropdownOption value="ALL" valueLabel="All Stages" />
+</Dropdown>
+<Dropdown data={regions} name=region value=region label=region defaultValue="ALL">
+  <DropdownOption value="ALL" valueLabel="All Regions" />
+</Dropdown>
 <Dropdown data={countries} name=country value=country_code label=country_name defaultValue="ALL">
   <DropdownOption value="ALL" valueLabel="All Countries" />
 </Dropdown>
@@ -59,9 +65,15 @@ queries:
 
 ## Monitor exposure by industry
 
-<Dropdown data={funds} name=fund value=fund_id label=fund_name defaultValue="ALL" />
-<Dropdown data={stages} name=stage value=stage_id label=stage_name defaultValue="ALL" />
-<Dropdown data={industries} name=industry value=industry_id label=industry_name defaultValue="ALL" />
+<Dropdown data={funds} name=fund value=fund_id label=fund_name defaultValue="ALL">
+  <DropdownOption value="ALL" valueLabel="All Funds" />
+</Dropdown>
+<Dropdown data={stages} name=stage value=stage_id label=stage_name defaultValue="ALL">
+  <DropdownOption value="ALL" valueLabel="All Stages" />
+</Dropdown>
+<Dropdown data={industries} name=industry value=industry_id label=industry_name defaultValue="ALL">
+  <DropdownOption value="ALL" valueLabel="All Industries" />
+</Dropdown>
 
 <AreaChart
   data={industry_exposure_ts}

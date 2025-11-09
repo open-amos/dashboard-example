@@ -3,13 +3,11 @@ with filtered as (
     date_trunc('month', cast(exposure_month as timestamp)) as month,
     industry_name,
     deployed_capital_usd,
-    period_type,
-    fund_id,
-    stage_id
-  from metrics_exposure_by_industry
+    period_type
+  from metrics_exposure_timeseries
   where 1=1
-    and cast(fund_id as varchar) = '${inputs.fund.value}'
-    and cast(stage_id as varchar) = '${inputs.stage.value}'
+    and (fund_id = '${inputs.fund.value}' or '${inputs.fund.value}' = 'ALL')
+    and (stage_id = '${inputs.stage.value}' or '${inputs.stage.value}' = 'ALL' or stage_id is null)
 ), first_current_month as (
   select min(month) as min_month from filtered where period_type = 'Current'
 )

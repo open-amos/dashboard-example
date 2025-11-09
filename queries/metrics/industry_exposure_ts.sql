@@ -3,13 +3,12 @@ with filtered as (
     date_trunc('month', cast(exposure_month as timestamp)) as month,
     deployed_capital_usd,
     closed_pipeline_usd,
-    total_exposure_usd,
     period_type
-  from metrics_exposure_by_industry
+  from metrics_exposure_timeseries
   where 1=1
-    and cast(fund_id as varchar) = '${inputs.fund.value}'
-    and cast(stage_id as varchar) = '${inputs.stage.value}'
-    and cast(industry_id as varchar) = '${inputs.industry.value}'
+    and (fund_id = '${inputs.fund.value}' or '${inputs.fund.value}' = 'ALL')
+    and (stage_id = '${inputs.stage.value}' or '${inputs.stage.value}' = 'ALL' or stage_id is null)
+    and (industry_id = '${inputs.industry.value}' or '${inputs.industry.value}' = 'ALL')
 ), months as (
   select distinct month from filtered
 ), first_current_month as (
