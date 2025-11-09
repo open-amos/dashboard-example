@@ -45,7 +45,12 @@ queries:
   areaCol="country_code"
   geoId="iso_a2"
   value=exposure
-  valueFmt="usd0"
+  valueFmt="usd0k"
+  name=country_name
+  tooltip={[
+    {id: 'country_name', fmt: 'str', showColumnName: false},
+    {id: 'exposure', fmt: 'usd0', showColumnName: false}
+  ]}
   geoJsonUrl="https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_0_countries.geojson"
   height={480}
 />
