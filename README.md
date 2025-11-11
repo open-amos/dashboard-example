@@ -1,48 +1,38 @@
-# Evidence Template Project
+# AMOS
 
-## Using Codespaces
+**Version:** 0.1.0 — *Early proof-of-concept release* 
 
-If you are using this template in Codespaces, click the `Start Evidence` button in the bottom status bar. This will install dependencies and open a preview of your project in your browser - you should get a popup prompting you to open in browser.
+---
+[Overview](../) | [Starter](../starter) | [Core](../core) | [Source Example](../source-example) | **Dashboard**
 
-Or you can use the following commands to get started:
+---
 
-```bash
-npm install
-npm run sources
-npm run dev -- --host 0.0.0.0
-```
+# AMOS Dashboard
 
-See [the CLI docs](https://docs.evidence.dev/cli/) for more command information.
+A dashboard example built on AMOS Core and AMOS Source Example, based on the [Evidence](https://evidence.dev) framework.
 
-**Note:** Codespaces is much faster on the Desktop app. After the Codespace has booted, select the hamburger menu → Open in VS Code Desktop.
+## Quick Start
 
-## Get Started from VS Code
+1. Install and run [Amos Starter](https://github.com/open-amos/starter)
+2. Git clone this repository
+3. Configure your database connection details in `sources/**/connection.yaml` (e.g. `sources/postgres/connection.yaml`)
+4. Run `npm install` to install the dependencies
+5. Run `npm run sources` to install the sources
+6. Run `npm run dev` to start the development server
 
-The easiest way to get started is using the [VS Code Extension](https://marketplace.visualstudio.com/items?itemName=Evidence.evidence-vscode):
+Then open the local URL printed by the dev server.
 
+## Contributing
 
+AMOS is open source and welcomes contributions. Report bugs, suggest features, add integration patterns, or submit pull requests.
 
-1. Install the extension from the VS Code Marketplace
-2. Open the Command Palette (Ctrl/Cmd + Shift + P) and enter `Evidence: New Evidence Project`
-3. Click `Start Evidence` in the bottom status bar
+## Support
 
-## Get Started using the CLI
+- **Documentation**: [docs.amos.tech](https://docs.amos.tech)
+- **Issues**: GitHub Issues
 
-```bash
-npx degit evidence-dev/template my-project
-cd my-project 
-npm install 
-npm run sources
-npm run dev 
-```
+## Related Projects
 
-Check out the docs for [alternative install methods](https://docs.evidence.dev/getting-started/install-evidence) including Docker, Github Codespaces, and alongside dbt.
-
-
-
-## Learning More
-
-- [Docs](https://docs.evidence.dev/)
-- [Github](https://github.com/evidence-dev/evidence)
-- [Slack Community](https://slack.evidence.dev/)
-- [Evidence Home Page](https://www.evidence.dev)
+- **[AMOS Core](../core)** - Canonical dimensional model
+- **[AMOS Source Example](../source-example)** - Source integration patterns
+- **[AMOS Dashboard](../dashboard-example)** - Example analytics and KPI dashboards built on AMOS Core
