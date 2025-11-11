@@ -1,0 +1,8 @@
+# Copy and rename this file to connection.yaml
+name: postgres             
+type: postgres             # your database type
+options:
+  database: ''             # your database name
+  host: 127.0.0.1          # your host
+  port: 5432               # your port (default is 5432 for postgres)
+  schema: 'public_metrics' # your schema (default is public_metrics for Amos Core)
