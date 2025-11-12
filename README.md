@@ -36,3 +36,8 @@ AMOS is open source and welcomes contributions. Report bugs, suggest features, a
 - **[AMOS Starter](../starter)** - Orchestrator and entry point
 - **[AMOS Core](../core)** - Canonical dimensional model
 - **[AMOS Source Example](../source-example)** - Source integration patterns
+
+## Licensing
+
+This subproject is part of the AMOS public preview. Licensing terms will be finalized before version 1.0.
+For now, the code is shared for evaluation and feedback only. Commercial or production use requires written permission from the maintainers.
