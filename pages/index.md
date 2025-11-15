@@ -3,6 +3,7 @@ title: AMOS Demo Dashboard
 queries:
   - funds: dimensions/funds.sql
   - stages: dimensions/stages.sql
+  - industries: dimensions/industries.sql
   - regions: dimensions/regions.sql
   - countries: dimensions/countries.sql
   - exposure_forecasts: metrics/exposure_forecasts.sql
