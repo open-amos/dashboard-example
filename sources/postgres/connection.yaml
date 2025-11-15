@@ -1,0 +1,11 @@
+name: postgres
+type: postgres
+options:
+  # These are non-secret defaults; they are overridden by:
+  # - EVIDENCE_SOURCE__postgres__* environment variables, and/or
+  # - values in connection.options.yaml (for user/password, etc.)
+  #
+  database: ''
+  host: ''
+  port: ''
+  schema: ''
