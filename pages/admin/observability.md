@@ -1,11 +1,13 @@
 ---
-title: Data pipelines
+title: Data Management
 queries:
   - latest: metrics/dbt_latest_invocation_overview.sql
+  - source_summary: metrics/dbt_source_summary.sql
   - runs_over_time: metrics/dbt_runs_over_time.sql
   - model_status_counts: metrics/dbt_model_status_counts.sql
   - top_model_durations: metrics/dbt_top_model_durations.sql
   - test_failures: metrics/dbt_test_failures.sql
+  - test_passes: metrics/dbt_test_passes.sql
   - exposures_count: metrics/dbt_exposures_count.sql
   - sources_count: metrics/dbt_sources_count.sql
   - models_by_materialization: metrics/dbt_models_by_materialization.sql
@@ -13,69 +15,131 @@ queries:
 ---
 
 <Alert status="info">
-  This dashboard summarizes dbt runs from dbt_artifacts models materialized under the <code>public</code> schema.
-  It shows recent run health, failures, and performance characteristics.
-  Latest run: {latest?.[0]?.run_started_at}
+  This dashboard shows recent pipeline run health, failures, and performance characteristics.
 </Alert>
 
 <Grid cols=4>
-  <BigValue title="Models (Latest Run)" value={latest?.[0]?.models_total} />
-  <BigValue title="Model Errors (Latest Run)" value={latest?.[0]?.models_error} />
-  <BigValue title="Test Failures (Latest Run)" value={latest?.[0]?.tests_failed} />
-  <BigValue title="Exposures" value={exposures_count?.[0]?.exposures} />
+  <BigValue 
+    data={latest}
+    value=models_run_started_at_label
+    title="Latest model run"
+  />
+  <BigValue 
+    data={latest}
+    value=seeds_run_started_at_label
+    title="Latest seed run"
+  />
+  <BigValue 
+    data={latest}
+    value=snapshots_run_started_at_label
+    title="Latest snapshot run"
+  />
+  <BigValue 
+    data={latest}
+    value=tests_run_started_at_label
+    title="Latest test run"
+  />
+</Grid>
+
+### Sources feeding this environment
+
+<DataTable data={source_summary}>
+  <Column id=source_display title="Source" />
+  <Column id=dataset_display title="Dataset" />
+  <Column id=loader title="Loader" />
+  <Column id=schema title="Schema" />
+  <Column id=identifier title="Table / Identifier" />
+</DataTable>
+
+<hr class="my-4" />
+
+<Grid cols=4>
+  <BigValue 
+    data={latest}
+    value=models_total
+    title="Models (Latest Run)"
+  />
+  <BigValue 
+    data={latest}
+    value=models_error
+    title="Model Errors (Latest Run)"
+  />
+  <BigValue 
+    data={latest}
+    value=tests_failed
+    title="Test Failures (Latest Run)"
+  />
+  <BigValue 
+    data={exposures_count}
+    value=exposures
+    title="Exposures"
+  />
 </Grid>
 
 <Grid cols=4>
-  <BigValue title="Seeds (Latest Run)" value={latest?.[0]?.seeds_total} />
-  <BigValue title="Seed Errors (Latest Run)" value={latest?.[0]?.seeds_error} />
-  <BigValue title="Snapshots (Latest Run)" value={latest?.[0]?.snapshots_total} />
-  <BigValue title="Snapshot Errors (Latest Run)" value={latest?.[0]?.snapshots_error} />
+  <BigValue 
+    data={latest}
+    value=seeds_total
+    title="Seeds (Latest Run)"
+  />
+  <BigValue 
+    data={latest}
+    value=seeds_error
+    title="Seed Errors (Latest Run)"
+  />
+  <BigValue 
+    data={latest}
+    value=snapshots_total
+    title="Snapshots (Latest Run)"
+  />
+  <BigValue 
+    data={latest}
+    value=snapshots_error
+    title="Snapshot Errors (Latest Run)"
+  />
 </Grid>
 
 <hr class="my-4" />
 
 ### Run Activity
+<AreaChart
+  data={runs_over_time}
+  title="Runs per Day"
+  x=day_label
+  y=runs
+/>
 
-<Grid cols=2>
-  <AreaChart
-    data={runs_over_time}
-    title="Runs per Day"
-    x=day
-    y=runs
-  />
-
-  <ECharts config={
-    {
-      title: { text: 'Run Outcomes per Day' },
-      tooltip: { trigger: 'axis' },
-      legend: { data: ['Successful', 'Failed'] },
-      xAxis: {
-        type: 'category',
-        data: runs_over_time?.map(d => d.day) || []
+<ECharts config={
+  {
+    title: { text: 'Run Outcomes per Day' },
+    tooltip: { trigger: 'axis' },
+    legend: { data: ['Successful', 'Failed'] },
+    xAxis: {
+      type: 'category',
+      data: runs_over_time?.map(d => d.day_label) || []
+    },
+    yAxis: { type: 'value' },
+    series: [
+      {
+        name: 'Successful',
+        type: 'bar',
+        stack: 'total',
+        data: runs_over_time?.map(d => d.successful_runs) || []
       },
-      yAxis: { type: 'value' },
-      series: [
-        {
-          name: 'Successful',
-          type: 'bar',
-          stack: 'total',
-          data: runs_over_time?.map(d => d.successful_runs) || []
-        },
-        {
-          name: 'Failed',
-          type: 'bar',
-          stack: 'total',
-          data: runs_over_time?.map(d => d.failed_runs) || []
-        }
-      ]
-    }
-  } />
-</Grid>
+      {
+        name: 'Failed',
+        type: 'bar',
+        stack: 'total',
+        data: runs_over_time?.map(d => d.failed_runs) || []
+      }
+    ]
+  }
+} />
 
 <AreaChart
   data={runtime_over_time}
   title="Total Model Runtime per Day (seconds)"
-  x=day
+  x=day_label
   y=total_runtime_seconds
 />
 
@@ -112,6 +176,17 @@ queries:
 <DataTable data={top_model_durations} />
 
 ### Failing Tests (Latest Run)
-<DataTable data={test_failures} />
+{#if test_failures.length}
+  <DataTable data={test_failures} />
+{:else}
+  No failing tests on the latest run.
+{/if}
+
+### Passing Tests (Latest Run)
+{#if test_passes.length}
+  <DataTable data={test_passes} />
+{:else}
+  No passing tests found for the latest test run.
+{/if}
 
 

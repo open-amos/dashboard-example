@@ -13,8 +13,7 @@ select
 from fct_dbt__test_executions te
 left join dim_dbt__tests dt using (node_id)
 where te.command_invocation_id = (select command_invocation_id from latest_test)
-  and (te.status in ('fail','error','warn') or coalesce(te.failures,0) > 0)
-order by coalesce(te.failures,0) desc nulls last;
-
+  and (te.status = 'pass' and coalesce(te.failures,0) = 0)
+order by dt.name;
 
 
