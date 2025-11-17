@@ -2,6 +2,7 @@
 queries:
   - company_info: dimensions/company_info.sql
   - company_financials: metrics/company_financials_timeseries.sql
+  - company_financials_table: metrics/company_financials_table.sql
   - company_instruments: metrics/company_instruments.sql
 ---
 
@@ -36,6 +37,34 @@ Primary country: {company_info[0].primary_country}
 {:else}
 
 No instruments.
+
+{/if}
+
+<hr class="my-4" />
+
+## Company Financials
+
+{#if company_financials_table.length}
+
+<DataTable data={company_financials_table}>
+  <Column id=period_end_date title="Period End Date" />
+  <Column id=revenue title="Revenue" fmt=usd0 />
+  <Column id=ebitda title="EBITDA" fmt=usd0 />
+  <Column id=ebitda_margin title="EBITDA Margin" fmt=pct1 />
+  <Column id=cash title="Cash" fmt=usd0 />
+  <Column id=total_assets title="Total Assets" fmt=usd0 />
+  <Column id=total_liabilities title="Total Liabilities" fmt=usd0 />
+  <Column id=equity title="Equity" fmt=usd0 />
+  <Column id=net_debt title="Net Debt" fmt=usd0 />
+  <Column id=enterprise_value title="Enterprise Value" fmt=usd0 />
+  <Column id=ev_to_ebitda title="EV/EBITDA" fmt=num1 />
+  <Column id=ev_to_revenue title="EV/Revenue" fmt=num1 />
+  <Column id=reporting_currency title="Currency" />
+</DataTable>
+
+{:else}
+
+No financial data available.
 
 {/if}
 
