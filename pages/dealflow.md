@@ -22,6 +22,8 @@ queries:
   <Column id=stage_name title="Stage" contentType=colorscale scaleColor={['#6db678','white','#bfbfbeff']} scaleColumn=stage_order />
   <Column id=opportunity_name title="Opportunity" />
   <Column id=company_name title="Company" />
+  <Column id=primary_country title="Country" />
+  <Column id=primary_industry title="Industry" />
   <Column id=expected_investment_amount title="Expected Investment" fmt=usd0 />
   <Column id=expected_close_date title="Expected Close" fmt=mmm-dd-yyyy />
   <Column id=fund_name title="Fund" />
