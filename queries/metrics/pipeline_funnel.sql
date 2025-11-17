@@ -4,7 +4,7 @@
 
 select
     stg.name as stage_name,
-    stg."order" as stage_id,
+    stg."order" as stage_order,
     count(distinct opp.opportunity_id) as opportunity_count,
     sum(opp.amount) as total_expected_investment
 from dim_opportunities opp
