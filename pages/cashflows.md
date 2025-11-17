@@ -1,5 +1,5 @@
 ---
-title: Returns Analysis
+title: Cashflows
 queries:
   - returns_cashflows_timeseries: metrics/returns_cashflows_timeseries.sql
   - funds: dimensions/funds.sql

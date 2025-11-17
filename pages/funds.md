@@ -1,5 +1,5 @@
 ---
-title: Fund Performance
+title: Funds
 queries:
   - fund_performance_overview: metrics/fund_performance_overview.sql
   - funds: dimensions/funds.sql
@@ -62,7 +62,7 @@ queries:
 
 ### Fund NAV Over Time
 
-<LineChart 
+<BarChart 
   data={fund_performance_overview}
   x=period_end_date
   y=fund_nav

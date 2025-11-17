@@ -1,5 +1,5 @@
 ---
-title: Portfolio
+title: Deal Flow
 queries:
   - months_slider: helpers/months_slider.sql
   - funds: dimensions/funds.sql
