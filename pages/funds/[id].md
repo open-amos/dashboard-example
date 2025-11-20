@@ -119,7 +119,25 @@ queries:
 
 {#if fund_instruments.length}
 
-<DataTable data={fund_instruments} rows=20>
+### Holdings Performance Analysis
+
+<ScatterPlot 
+  data={fund_instruments}
+  x=gross_irr
+  y=gross_moic
+  size=cumulative_invested
+  series=instrument_type
+  tooltipTitle=instrument_name
+  xFmt="pct1"
+  yFmt="num1"
+  title="MOIC vs IRR by Position"
+  xAxisTitle="Gross IRR"
+  yAxisTitle="Gross MOIC"
+/>
+
+### Holdings Detail
+
+<DataTable data={fund_instruments} rows=20 search=true>
   <Column id=instrument_name title="Instrument" />
   <Column id=company_name title="Company" />
   <Column id=instrument_type title="Type" />

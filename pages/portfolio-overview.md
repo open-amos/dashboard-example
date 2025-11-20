@@ -7,6 +7,7 @@ queries:
   - country_exposure: metrics/country_exposure.sql
   - top_contributors: metrics/top_contributors.sql
   - top_detractors: metrics/top_detractors.sql
+  - portfolio_positions: metrics/portfolio_positions.sql
 ---
 
 # Portfolio Performance
@@ -105,6 +106,24 @@ queries:
     />
   </div>
 </Grid>
+
+## Position Performance Analysis
+
+### MOIC vs IRR Analysis
+
+<ScatterPlot 
+  data={portfolio_positions}
+  x=gross_irr
+  y=gross_moic
+  size=cumulative_invested
+  series=fund_name
+  tooltipTitle=instrument_name
+  xFmt="pct1"
+  yFmt="num1"
+  title="Portfolio Positions: MOIC vs IRR"
+  xAxisTitle="Gross IRR"
+  yAxisTitle="Gross MOIC"
+/>
 
 ## Top Contributors & Detractors
 
