@@ -2,6 +2,7 @@
 title: Funds
 queries:
   - fund_performance_overview: metrics/fund_performance_overview.sql
+  - fund_performance_aggregate: metrics/fund_performance_aggregate.sql
   - funds_list: metrics/funds_list.sql
   - funds: dimensions/funds.sql
 ---
@@ -9,21 +10,21 @@ queries:
 ## Key Metrics
 
 <BigValue 
-  data={fund_performance_overview} 
+  data={fund_performance_aggregate} 
   value=total_commitments
   fmt="usd0"
   title="Total Commitments"
 />
 
 <BigValue 
-  data={fund_performance_overview} 
+  data={fund_performance_aggregate} 
   value=unfunded_commitment
   fmt="usd0"
   title="Unfunded Commitment"
 />
 
 <BigValue 
-  data={fund_performance_overview} 
+  data={fund_performance_aggregate} 
   value=total_distributions
   fmt="usd0"
   title="Total Distributions"
