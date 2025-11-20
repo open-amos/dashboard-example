@@ -109,7 +109,17 @@ queries:
 
 ## Position Performance Analysis
 
-### MOIC vs IRR Analysis
+<Grid cols=2>
+
+<BarChart 
+  data={portfolio_positions}
+  x=instrument_name
+  y=gross_moic
+  yFmt="num1"
+  title="Top Positions by MOIC"
+  swapXY=true
+  limit=10
+/>
 
 <ScatterPlot 
   data={portfolio_positions}
@@ -117,13 +127,15 @@ queries:
   y=gross_moic
   size=cumulative_invested
   series=fund_name
-  tooltipTitle=instrument_name
+  label=instrument_name
   xFmt="pct1"
   yFmt="num1"
-  title="Portfolio Positions: MOIC vs IRR"
+  title="MOIC vs IRR"
   xAxisTitle="Gross IRR"
   yAxisTitle="Gross MOIC"
 />
+
+</Grid>
 
 ## Top Contributors & Detractors
 

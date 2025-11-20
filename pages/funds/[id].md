@@ -121,19 +121,33 @@ queries:
 
 ### Holdings Performance Analysis
 
+<Grid cols=2>
+
+<BarChart 
+  data={fund_instruments}
+  x=instrument_name
+  y=gross_moic
+  yFmt="num1"
+  title="Top Positions by MOIC"
+  swapXY=true
+  limit=10
+/>
+
 <ScatterPlot 
   data={fund_instruments}
   x=gross_irr
   y=gross_moic
   size=cumulative_invested
   series=instrument_type
-  tooltipTitle=instrument_name
+  label=instrument_name
   xFmt="pct1"
   yFmt="num1"
   title="MOIC vs IRR by Position"
   xAxisTitle="Gross IRR"
   yAxisTitle="Gross MOIC"
 />
+
+</Grid>
 
 ### Holdings Detail
 
