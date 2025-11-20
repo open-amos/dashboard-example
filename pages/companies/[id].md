@@ -72,30 +72,38 @@ No financial data available.
 
 ## Financial Performance
 
-<Grid cols=2>
+{#if company_financials.length}
 
-<LineChart
-  data={company_financials}
-  title="Revenue Over Time"
-  x=period_end_date
-  y=revenue
-  yFmt=usd0
-/>
+  <Grid cols=2>
 
-<LineChart
-  data={company_financials}
-  title="EBITDA Over Time"
-  x=period_end_date
-  y=ebitda
-  yFmt=usd0
-/>
+  <LineChart
+    data={company_financials}
+    title="Revenue Over Time"
+    x=period_end_date
+    y=revenue
+    yFmt=usd0
+  />
 
-</Grid>
+  <LineChart
+    data={company_financials}
+    title="EBITDA Over Time"
+    x=period_end_date
+    y=ebitda
+    yFmt=usd0
+  />
 
-<LineChart
-  data={company_financials}
-  title="EBITDA Margin"
-  x=period_end_date
-  y=ebitda_margin
-  yFmt=pct1
-/>
+  </Grid>
+
+  <LineChart
+    data={company_financials}
+    title="EBITDA Margin"
+    x=period_end_date
+    y=ebitda_margin
+    yFmt=pct1
+  />
+
+{:else}
+
+  No financial data available.
+
+{/if}
