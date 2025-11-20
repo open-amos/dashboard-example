@@ -7,6 +7,16 @@ A demo environment illustrating how AMOS helps private market firms analyze fund
 <div class="mx-auto max-w-6xl mt-8">
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
     
+    <a href="/portfolio-overview" class="block rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm hover:shadow-md transition-shadow p-6 no-underline">
+      <div class="flex flex-col items-center text-center gap-3">
+        <span class="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-300 text-2xl">📈</span>
+        <div>
+          <div class="font-semibold text-lg text-gray-900 dark:text-gray-100">Portfolio Overview</div>
+          <div class="text-sm text-gray-500 mt-1">Portfolio-wide performance</div>
+        </div>
+      </div>
+    </a>
+
     <a href="/funds" class="block rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm hover:shadow-md transition-shadow p-6 no-underline">
       <div class="flex flex-col items-center text-center gap-3">
         <span class="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-300 text-2xl">💼</span>
@@ -43,16 +53,6 @@ A demo environment illustrating how AMOS helps private market firms analyze fund
         <div>
           <div class="font-semibold text-lg text-gray-900 dark:text-gray-100">Cash Flows</div>
           <div class="text-sm text-gray-500 mt-1">Returns and distributions</div>
-        </div>
-      </div>
-    </a>
-
-    <a href="/position-performance" class="block rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm hover:shadow-md transition-shadow p-6 no-underline">
-      <div class="flex flex-col items-center text-center gap-3">
-        <span class="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-amber-50 text-amber-600 dark:bg-amber-900/30 dark:text-amber-300 text-2xl">📊</span>
-        <div>
-          <div class="font-semibold text-lg text-gray-900 dark:text-gray-100">Position Performance</div>
-          <div class="text-sm text-gray-500 mt-1">Investment tracking</div>
         </div>
       </div>
     </a>
