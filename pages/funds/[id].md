@@ -3,11 +3,15 @@ queries:
   - fund_key_metrics: metrics/fund_key_metrics.sql
   - fund_metrics_timeseries: metrics/fund_metrics_timeseries.sql
   - fund_instruments: metrics/fund_instruments.sql
+  - fund_credit_maturity_ladder: metrics/fund_credit_maturity_ladder.sql
+  - fund_credit_yield_distribution: metrics/fund_credit_yield_distribution.sql
 ---
 
 # {fund_key_metrics[0].fund_name}
 
-## Key Metrics
+{#if fund_key_metrics[0].fund_type === 'EQUITY'}
+
+## Key Metrics - Private Equity
 
 <Grid cols=4>
 
@@ -124,9 +128,9 @@ queries:
 <Grid cols=2>
 
 <BarChart 
-  data={fund_instruments}
+  data={fund_instruments.filter(d => d.instrument_type === 'EQUITY')}
   x=instrument_name
-  y=gross_moic
+  y=moic
   yFmt="num1"
   title="Top Positions by MOIC"
   swapXY=true
@@ -134,11 +138,10 @@ queries:
 />
 
 <ScatterPlot 
-  data={fund_instruments}
-  x=gross_irr
-  y=gross_moic
+  data={fund_instruments.filter(d => d.instrument_type === 'EQUITY')}
+  x=equity_irr
+  y=moic
   size=cumulative_invested
-  series=instrument_type
   tooltipTitle=instrument_name
   xFmt="pct1"
   yFmt="num1"
@@ -151,20 +154,189 @@ queries:
 
 ### Holdings Detail
 
-<DataTable data={fund_instruments} rows=20 search=true>
+<DataTable data={fund_instruments.filter(d => d.instrument_type === 'EQUITY')} rows=20>
   <Column id=instrument_name title="Instrument" />
   <Column id=company_name title="Company" />
-  <Column id=instrument_type title="Type" />
   <Column id=initial_investment_date title="Investment Date" />
   <Column id=cumulative_invested title="Invested" fmt=usd0 />
-  <Column id=current_fair_value title="Fair Value" fmt=usd0 />
+  <Column id=fair_value title="Fair Value" fmt=usd0 />
   <Column id=total_value title="Total Value" fmt=usd0 />
-  <Column id=gross_irr title="IRR" fmt=pct1 />
-  <Column id=gross_moic title="MOIC" fmt=num1 contentType=bar />
+  <Column id=equity_irr title="IRR" fmt=pct1 />
+  <Column id=moic title="MOIC" fmt=num1 contentType=bar />
+  <Column id=ownership_pct_current title="Ownership %" fmt=pct1 />
 </DataTable>
 
 {:else}
 
-No instruments found for this fund.
+No equity instruments found for this fund.
+
+{/if}
+
+{:else if fund_key_metrics[0].fund_type === 'CREDIT'}
+
+## Key Metrics - Private Credit
+
+<Grid cols=4>
+
+<BigValue 
+  data={fund_key_metrics} 
+  value=total_exposure
+  fmt="usd0"
+  title="Total Exposure"
+/>
+
+<BigValue 
+  data={fund_key_metrics} 
+  value=principal_outstanding
+  fmt="usd0"
+  title="Principal Outstanding"
+/>
+
+<BigValue 
+  data={fund_key_metrics} 
+  value=undrawn_commitment
+  fmt="usd0"
+  title="Undrawn Commitment"
+/>
+
+<BigValue 
+  data={fund_key_metrics} 
+  value=interest_income
+  fmt="usd0"
+  title="Interest Income"
+/>
+
+</Grid>
+
+<Grid cols=4>
+
+<BigValue 
+  data={fund_key_metrics} 
+  value=total_commitments
+  fmt="usd0"
+  title="Total Commitments"
+/>
+
+<BigValue 
+  data={fund_key_metrics} 
+  value=total_called_capital
+  fmt="usd0"
+  title="Total Called Capital"
+/>
+
+<BigValue 
+  data={fund_key_metrics} 
+  value=total_distributions
+  fmt="usd0"
+  title="Total Distributions"
+/>
+
+<BigValue 
+  data={fund_key_metrics} 
+  value=number_of_positions
+  fmt="num0"
+  title="Number of Positions"
+/>
+
+</Grid>
+
+<hr class="my-4" />
+
+## Performance Over Time
+
+<Grid cols=2>
+
+<LineChart
+  data={fund_metrics_timeseries}
+  title="Total Exposure Over Time"
+  x=period_end_date
+  y=total_exposure
+  yFmt=usd0
+/>
+
+<LineChart
+  data={fund_metrics_timeseries}
+  title="Principal Outstanding Over Time"
+  x=period_end_date
+  y=principal_outstanding
+  yFmt=usd0
+/>
+
+<LineChart
+  data={fund_metrics_timeseries}
+  title="Undrawn Commitment Over Time"
+  x=period_end_date
+  y=undrawn_commitment
+  yFmt=usd0
+/>
+
+<LineChart
+  data={fund_metrics_timeseries}
+  title="Interest Income Over Time"
+  x=period_end_date
+  y=interest_income
+  yFmt=usd0
+/>
+
+</Grid>
+
+<hr class="my-4" />
+
+## Credit Portfolio Analysis
+
+{#if fund_credit_maturity_ladder.length}
+
+<Grid cols=2>
+
+<BarChart 
+  data={fund_credit_maturity_ladder}
+  x=maturity_year
+  y=principal_maturing
+  yFmt="usd0"
+  title="Maturity Ladder"
+  xAxisTitle="Maturity Year"
+  yAxisTitle="Principal Maturing"
+/>
+
+<BarChart 
+  data={fund_credit_yield_distribution}
+  x=instrument_name
+  y=all_in_yield
+  yFmt="pct1"
+  title="All-in Yield by Position"
+  swapXY=true
+  limit=10
+/>
+
+</Grid>
+
+{/if}
+
+<hr class="my-4" />
+
+## Fund Holdings
+
+{#if fund_instruments.length}
+
+### Holdings Detail
+
+<DataTable data={fund_instruments.filter(d => d.instrument_type === 'CREDIT')} rows=20>
+  <Column id=instrument_name title="Instrument" />
+  <Column id=company_name title="Company" />
+  <Column id=principal_outstanding title="Principal Outstanding" fmt=usd0 />
+  <Column id=undrawn_commitment title="Undrawn" fmt=usd0 />
+  <Column id=spread_bps title="Spread (bps)" fmt=num0 />
+  <Column id=interest_index title="Index" />
+  <Column id=all_in_yield title="All-in Yield" fmt=pct1 />
+  <Column id=maturity_date title="Maturity Date" />
+  <Column id=security_rank title="Security Rank" />
+  <Column id=days_to_maturity title="Days to Maturity" fmt=num0 />
+</DataTable>
+
+{:else}
+
+No credit instruments found for this fund.
+
+{/if}
 
 {/if}
