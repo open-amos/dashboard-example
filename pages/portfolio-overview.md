@@ -4,6 +4,7 @@ queries:
   - equity_portfolio_metrics: metrics/equity_portfolio_metrics.sql
   - equity_portfolio_timeseries: metrics/equity_portfolio_timeseries.sql
   - credit_portfolio_metrics: metrics/credit_portfolio_metrics.sql
+  - credit_portfolio_timeseries: metrics/credit_portfolio_timeseries.sql
   - sector_exposure: metrics/sector_exposure.sql
   - country_exposure: metrics/country_exposure.sql
   - top_contributors: metrics/top_contributors.sql
@@ -14,7 +15,7 @@ queries:
   - credit_exposure_by_rank: metrics/credit_exposure_by_rank.sql
 ---
 
-<Tabs>
+<Tabs color=primary>
 
 
 {#if equity_portfolio_metrics.length > 0}
@@ -78,6 +79,8 @@ queries:
       title="Portfolio Companies"
     />
   </Grid>
+
+  <hr class="my-6">
 
   ### NAV Trend
 
@@ -252,6 +255,28 @@ queries:
       title="Portfolio Companies"
     />
   </Grid>
+
+  <hr class="my-6">
+
+  ### Principal Outstanding Trend
+
+  <LineChart 
+    data={credit_portfolio_timeseries} 
+    x=period_end_date 
+    y=total_principal_outstanding
+    yFmt="usd0"
+    title="Principal Outstanding Over Time"
+  />
+
+  ### Net Cashflow
+
+  <AreaChart 
+    data={credit_portfolio_timeseries} 
+    x=period_end_date 
+    y=net_cash_contributions_period
+    yFmt="usd0"
+    title="Net Cash Contributions by Period (Credit)"
+  />
 
   ### Credit Portfolio Analysis
 
