@@ -1,5 +1,4 @@
 ---
-prerender: false
 queries:
   - fund_key_metrics: metrics/fund_key_metrics.sql
   - fund_metrics_timeseries: metrics/fund_metrics_timeseries.sql
@@ -7,6 +6,10 @@ queries:
   - fund_credit_maturity_ladder: metrics/fund_credit_maturity_ladder.sql
   - fund_credit_yield_distribution: metrics/fund_credit_yield_distribution.sql
 ---
+
+<script>
+  export const prerender = false;
+</script>
 
 # {fund_key_metrics[0].fund_name}
 

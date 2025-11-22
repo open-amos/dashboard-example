@@ -1,11 +1,14 @@
 ---
-prerender: false
 queries:
   - company_info: dimensions/company_info.sql
   - company_financials: metrics/company_financials_timeseries.sql
   - company_financials_table: metrics/company_financials_table.sql
   - company_instruments: metrics/company_instruments.sql
 ---
+
+<script>
+  export const prerender = false;
+</script>
 
 ```sql equity_instruments
 select * from ${company_instruments}
