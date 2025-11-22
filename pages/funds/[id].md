@@ -125,7 +125,7 @@ queries:
 
 ## Fund Holdings
 
-{#if fund_instruments.length}
+{#if fund_instruments.filter(d => d.instrument_type === 'EQUITY').length > 0}
 
 ### Holdings Performance Analysis
 
@@ -172,7 +172,7 @@ queries:
 
 {:else}
 
-No equity instruments found for this fund.
+No equity holdings found for this fund.
 
 {/if}
 
@@ -288,7 +288,7 @@ No equity instruments found for this fund.
 
 ## Credit Portfolio Analysis
 
-{#if fund_credit_maturity_ladder.length}
+{#if fund_credit_maturity_ladder.length > 0 && fund_credit_yield_distribution.length > 0}
 
 <Grid cols=2>
 
@@ -314,13 +314,17 @@ No equity instruments found for this fund.
 
 </Grid>
 
+{:else}
+
+No credit portfolio data available for analysis.
+
 {/if}
 
 <hr class="my-4" />
 
 ## Fund Holdings
 
-{#if fund_instruments.length}
+{#if fund_instruments.filter(d => d.instrument_type === 'CREDIT').length > 0}
 
 ### Holdings Detail
 
@@ -339,7 +343,7 @@ No equity instruments found for this fund.
 
 {:else}
 
-No credit instruments found for this fund.
+No credit holdings found for this fund.
 
 {/if}
 
