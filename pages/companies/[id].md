@@ -6,6 +6,24 @@ queries:
   - company_instruments: metrics/company_instruments.sql
 ---
 
+```sql equity_instruments
+select * from ${company_instruments}
+where instrument_type = 'EQUITY'
+```
+
+```sql credit_instruments
+select * from ${company_instruments}
+where instrument_type = 'CREDIT'
+```
+
+```sql total_exposure
+select
+  sum(exposure) as total_exposure,
+  sum(case when instrument_type = 'EQUITY' then exposure else 0 end) as equity_exposure,
+  sum(case when instrument_type = 'CREDIT' then exposure else 0 end) as credit_exposure
+from ${company_instruments}
+```
+
 # {company_info[0].company_name}
 
 Website: <Link url={company_info[0].website} label={company_info[0].website} />   
@@ -16,27 +34,77 @@ Primary country: {company_info[0].primary_country}
 
 <hr class="my-4" />
 
-## Instruments
+## Investment Summary
 
-{#if company_instruments.length}
+<Grid cols=3>
+  <BigValue 
+    data={total_exposure} 
+    value=total_exposure 
+    fmt=usd0 
+    title="Total Exposure"
+  />
+  <BigValue 
+    data={total_exposure} 
+    value=equity_exposure 
+    fmt=usd0 
+    title="Equity Exposure"
+  />
+  <BigValue 
+    data={total_exposure} 
+    value=credit_exposure 
+    fmt=usd0 
+    title="Credit Exposure"
+  />
+</Grid>
 
-<DataTable data={company_instruments}>
+<hr class="my-4" />
+
+## Equity Positions
+
+{#if equity_instruments.length > 0}
+
+<DataTable data={equity_instruments}>
   <Column id=instrument_name title="Instrument" />
-  <Column id=instrument_type title="Type" />
   <Column id=fund_name title="Fund" />
   <Column id=initial_investment_date title="Investment Date" />
   <Column id=exit_date title="Exit Date" />
   <Column id=cumulative_invested title="Invested" fmt=usd0 />
-  <Column id=current_fair_value title="Fair Value" fmt=usd0 />
-  <Column id=total_value title="Total Value" fmt=usd0 />
-  <Column id=gross_moic title="MOIC" fmt=num1 />
-  <Column id=gross_irr title="IRR" fmt=pct1 />
+  <Column id=fair_value title="Fair Value" fmt=usd0 />
+  <Column id=cumulative_distributions title="Distributions" fmt=usd0 />
+  <Column id=moic title="MOIC" fmt=num1 />
+  <Column id=equity_irr title="IRR" fmt=pct1 />
   <Column id=ownership_pct_current title="Ownership %" fmt=pct1 />
 </DataTable>
 
 {:else}
 
-No instruments.
+No equity positions.
+
+{/if}
+
+<hr class="my-4" />
+
+## Credit Positions
+
+{#if credit_instruments.length > 0}
+
+<DataTable data={credit_instruments}>
+  <Column id=instrument_name title="Instrument" />
+  <Column id=fund_name title="Fund" />
+  <Column id=initial_investment_date title="Investment Date" />
+  <Column id=maturity_date title="Maturity Date" />
+  <Column id=principal_outstanding title="Principal Outstanding" fmt=usd0 />
+  <Column id=undrawn_commitment title="Undrawn Commitment" fmt=usd0 />
+  <Column id=accrued_interest title="Accrued Interest" fmt=usd0 />
+  <Column id=spread_bps title="Spread (bps)" fmt=num0 />
+  <Column id=interest_index title="Index" />
+  <Column id=all_in_yield title="All-in Yield" fmt=pct1 />
+  <Column id=security_rank title="Security Rank" />
+</DataTable>
+
+{:else}
+
+No credit positions.
 
 {/if}
 
