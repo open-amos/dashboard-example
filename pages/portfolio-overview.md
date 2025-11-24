@@ -3,8 +3,10 @@ title: Portfolio Overview
 queries:
   - equity_portfolio_metrics: metrics/equity_portfolio_metrics.sql
   - equity_portfolio_timeseries: metrics/equity_portfolio_timeseries.sql
+  - equity_capital_activity: metrics/equity_capital_activity.sql
   - credit_portfolio_metrics: metrics/credit_portfolio_metrics.sql
   - credit_portfolio_timeseries: metrics/credit_portfolio_timeseries.sql
+  - credit_capital_activity: metrics/credit_capital_activity.sql
   - sector_exposure: metrics/sector_exposure.sql
   - country_exposure: metrics/country_exposure.sql
   - top_contributors: metrics/top_contributors.sql
@@ -92,14 +94,26 @@ queries:
     title="Equity Portfolio NAV Over Time"
   />
 
-  ### Net Cashflow
+  ### Capital Activity
 
-  <AreaChart 
-    data={equity_portfolio_timeseries} 
+  <BarChart 
+    data={equity_capital_activity} 
     x=period_end_date 
-    y=net_cash_contributions_period
+    y={['contributions', 'distributions']}
     yFmt="usd0"
-    title="Net Cash Contributions by Period (Equity)"
+    title="Capital Activity by Period (Equity)"
+    labels={{
+      contributions: 'Contributions',
+      distributions: 'Distributions'
+    }}
+  />
+  
+  <LineChart 
+    data={equity_capital_activity} 
+    x=period_end_date 
+    y=net_cashflow
+    yFmt="usd0"
+    title="Net Cashflow by Period (Equity)"
   />
 
   ### Exposure Analysis
@@ -268,14 +282,26 @@ queries:
     title="Principal Outstanding Over Time"
   />
 
-  ### Net Cashflow
+  ### Capital Activity
 
-  <AreaChart 
-    data={credit_portfolio_timeseries} 
+  <BarChart 
+    data={credit_capital_activity} 
     x=period_end_date 
-    y=net_cash_contributions_period
+    y={['contributions', 'distributions']}
     yFmt="usd0"
-    title="Net Cash Contributions by Period (Credit)"
+    title="Capital Activity by Period (Credit)"
+    labels={{
+      contributions: 'Draws',
+      distributions: 'Repayments'
+    }}
+  />
+  
+  <LineChart 
+    data={credit_capital_activity} 
+    x=period_end_date 
+    y=net_cashflow
+    yFmt="usd0"
+    title="Net Cashflow by Period (Credit)"
   />
 
   ### Credit Portfolio Analysis
