@@ -9,6 +9,7 @@ with opportunity_ages as (
     from dim_opportunities opp
     inner join dim_stages stg on opp.stage_id = stg.stage_id
     where stg.name not in ('Lost', 'Declined', 'Signed')
+      and (opp.fund_id = '${inputs.fund.value}' or '${inputs.fund.value}' = 'ALL' or '${inputs.fund.value}' is null)
 ),
 stage_metrics as (
     select
@@ -27,6 +28,7 @@ conversion_metrics as (
         count(distinct case when stg.name = 'Signed' then opp.opportunity_id end) as closed_total
     from dim_opportunities opp
     inner join dim_stages stg on opp.stage_id = stg.stage_id
+    where (opp.fund_id = '${inputs.fund.value}' or '${inputs.fund.value}' = 'ALL' or '${inputs.fund.value}' is null)
 )
 select
     sm.*,

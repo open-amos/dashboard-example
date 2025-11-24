@@ -13,5 +13,6 @@ inner join dim_stages stg
     on opp.stage_id = stg.stage_id
 where stg.name not in ('Lost', 'Declined')  -- Exclude terminal Lost state from funnel
   and opp.close_date is not null
+  and (opp.fund_id = '${inputs.fund.value}' or '${inputs.fund.value}' = 'ALL' or '${inputs.fund.value}' is null)
 group by stg.name, stg."order"
 order by stg."order" ASC  -- Ascending order for funnel (Sourced first)

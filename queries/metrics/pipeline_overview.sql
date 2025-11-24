@@ -7,12 +7,14 @@ with active_pipeline as (
     from dim_opportunities opp
     inner join dim_stages stg on opp.stage_id = stg.stage_id
     where stg.name not in ('Lost', 'Declined')
+      and (opp.fund_id = '${inputs.fund.value}' or '${inputs.fund.value}' = 'ALL' or '${inputs.fund.value}' is null)
 ),
 lost_deals as (
     select opp.*, stg.name as stage_name
     from dim_opportunities opp
     inner join dim_stages stg on opp.stage_id = stg.stage_id
     where stg.name = 'Lost'
+      and (opp.fund_id = '${inputs.fund.value}' or '${inputs.fund.value}' = 'ALL' or '${inputs.fund.value}' is null)
 )
 select
     -- Active pipeline counts

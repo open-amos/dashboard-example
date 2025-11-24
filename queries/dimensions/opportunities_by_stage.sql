@@ -33,4 +33,5 @@ left join dim_industries ind
     on boi.industry_id = ind.industry_id
 where stg.name not in ('Lost', 'Declined')  -- Exclude terminal states
   and opp.close_date is not null
+  and (opp.fund_id = '${inputs.fund.value}' or '${inputs.fund.value}' = 'ALL' or '${inputs.fund.value}' is null)
 order by stg."order" asc, opp.close_date  -- Ascending order (Sourced first)

@@ -41,8 +41,8 @@ A demo environment illustrating how AMOS helps private market firms analyze fund
       <div class="flex flex-col items-center text-center gap-3">
         <span class="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-purple-50 text-purple-600 dark:bg-purple-900/30 dark:text-purple-300 text-2xl">🎯</span>
         <div>
-          <div class="font-semibold text-lg text-gray-900 dark:text-gray-100">Deal Flow</div>
-          <div class="text-sm text-gray-500 mt-1">Pipeline and opportunities</div>
+          <div class="font-semibold text-lg text-gray-900 dark:text-gray-100">Pipeline</div>
+          <div class="text-sm text-gray-500 mt-1">Deal opportunities</div>
         </div>
       </div>
     </a>
@@ -51,7 +51,7 @@ A demo environment illustrating how AMOS helps private market firms analyze fund
       <div class="flex flex-col items-center text-center gap-3">
         <span class="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-green-50 text-green-600 dark:bg-green-900/30 dark:text-green-300 text-2xl">💰</span>
         <div>
-          <div class="font-semibold text-lg text-gray-900 dark:text-gray-100">Cash Flows</div>
+          <div class="font-semibold text-lg text-gray-900 dark:text-gray-100">Cashflows</div>
           <div class="text-sm text-gray-500 mt-1">Returns and distributions</div>
         </div>
       </div>

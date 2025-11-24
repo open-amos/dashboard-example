@@ -18,9 +18,12 @@ queries:
   - opportunities_by_stage: dimensions/opportunities_by_stage.sql
 ---
 
-# Investment Pipeline
+<Dropdown data={funds} name=fund value=fund_id label=fund_name defaultValue="ALL">
+  <DropdownOption value="ALL" valueLabel="All Funds" />
+</Dropdown>
 
-## Pipeline Overview
+## Pipeline Overview 
+<Note>{inputs.fund.label}</Note>
 
 <Grid cols=5>
   <BigValue 
@@ -28,30 +31,40 @@ queries:
     value=total_opportunities
     fmt="num0"
     title="Total Opportunities"
+    emptySet="pass"
+    emptyMessage="-"
   />
   <BigValue 
     data={pipeline_overview}
     value=total_forecasted_exposure
     fmt="usd0"
     title="Total Pipeline Value"
+    emptySet="pass"
+    emptyMessage="-"
   />
   <BigValue 
     data={pipeline_overview}
     value=avg_ticket_size
     fmt="usd0"
     title="Avg Ticket Size"
+    emptySet="pass"
+    emptyMessage="-"
   />
   <BigValue 
     data={pipeline_overview}
     value=expected_deployment_12m
     fmt="usd0"
     title="Expected Deployment (12M)"
+    emptySet="pass"
+    emptyMessage="-"
   />
   <BigValue 
     data={pipeline_overview}
     value=ic_count
     fmt="num0"
     title="At IC Stage"
+    emptySet="pass"
+    emptyMessage="-"
   />
 </Grid>
 
@@ -67,6 +80,7 @@ queries:
     nameCol=stage_name
     valueCol=opportunity_count
     title="Deal Count by Stage"
+    subtitle="{inputs.fund.label}"
   />
   <Note>Lost: {pipeline_overview[0].lost_count}</Note>
 </div>
@@ -77,6 +91,7 @@ queries:
     valueCol=total_expected_investment
     valueFmt="usd0"
     title="Pipeline Value by Stage"
+    subtitle="{inputs.fund.label}"
   />
 </div>
 
@@ -85,6 +100,8 @@ queries:
 <hr class="my-6">
 
 ## Active Opportunities
+
+<Note>{inputs.fund.label}</Note>
 
 <DataTable
   data={opportunities_by_stage}
@@ -105,24 +122,32 @@ queries:
 
 ## Pipeline Velocity & Conversion
 
+<Note>{inputs.fund.label}</Note>
+
 <Grid cols=3>
   <BigValue 
     data={pipeline_velocity.filter(d => d.stage_name === 'Sourced')}
     value=avg_days_in_stage
     fmt="num0"
     title="Avg Days in Sourced"
+    emptySet="pass"
+    emptyMessage="-"
   />
   <BigValue 
     data={pipeline_velocity.filter(d => d.stage_name === 'Screening')}
     value=avg_days_in_stage
     fmt="num0"
     title="Avg Days in Screening"
+    emptySet="pass"
+    emptyMessage="-"
   />
   <BigValue 
     data={pipeline_velocity.filter(d => d.stage_name === 'Investment Committee')}
     value=avg_days_in_stage
     fmt="num0"
     title="Avg Days in IC"
+    emptySet="pass"
+    emptyMessage="-"
   />
 </Grid>
 
@@ -132,12 +157,16 @@ queries:
     value=sourced_to_ic_rate
     fmt="pct0"
     title="Sourced → IC Conversion"
+    emptySet="pass"
+    emptyMessage="-"
   />
   <BigValue 
     data={pipeline_velocity}
     value=ic_to_closed_rate
     fmt="pct0"
     title="IC → Closed Conversion"
+    emptySet="pass"
+    emptyMessage="-"
   />
 </Grid>
 
@@ -145,9 +174,6 @@ queries:
 
 ## Forecast Impact on Portfolio
 
-<Dropdown data={funds} name=fund value=fund_id label=fund_name defaultValue="ALL">
-  <DropdownOption value="ALL" valueLabel="All Funds" />
-</Dropdown>
 <Dropdown data={stages} name=stage value=stage_id label=stage_name defaultValue="ALL">
   <DropdownOption value="ALL" valueLabel="All Stages" />
 </Dropdown>
@@ -189,6 +215,7 @@ queries:
   geoJsonUrl="https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_0_countries.geojson"
   height={480}
 />
+<Note>{inputs.fund.label}</Note>
 
 <Slider
   name="month"
