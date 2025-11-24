@@ -37,7 +37,7 @@ A demo environment illustrating how AMOS helps private market firms analyze fund
       </div>
     </a>
 
-    <a href="/dealflow" class="block rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm hover:shadow-md transition-shadow p-6 no-underline">
+    <a href="/pipeline" class="block rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm hover:shadow-md transition-shadow p-6 no-underline">
       <div class="flex flex-col items-center text-center gap-3">
         <span class="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-purple-50 text-purple-600 dark:bg-purple-900/30 dark:text-purple-300 text-2xl">🎯</span>
         <div>
