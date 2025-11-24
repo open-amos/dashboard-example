@@ -54,7 +54,7 @@ queries:
   />
 </Grid>
 
-<Grid cols=5>
+<Grid cols=4>
   <BigValue 
     data={pipeline_overview}
     value=sourced_count
@@ -69,10 +69,19 @@ queries:
   />
   <BigValue 
     data={pipeline_overview}
+    value=diligence_count
+    fmt="num0"
+    title="Due Diligence"
+  />
+  <BigValue 
+    data={pipeline_overview}
     value=ic_count
     fmt="num0"
     title="IC Review"
   />
+</Grid>
+
+<Grid cols=4>
   <BigValue 
     data={pipeline_overview}
     value=term_sheet_count
@@ -84,6 +93,19 @@ queries:
     value=signed_count
     fmt="num0"
     title="Signed"
+  />
+  <BigValue 
+    data={pipeline_overview}
+    value=closed_count
+    fmt="num0"
+    title="Closed"
+  />
+  <BigValue 
+    data={pipeline_overview}
+    value=lost_count
+    fmt="num0"
+    title="Lost"
+    color=negative
   />
 </Grid>
 
@@ -118,7 +140,7 @@ queries:
   data={opportunities_by_stage}
   rows=20
 >
-  <Column id=stage_name title="Stage" contentType=colorscale scaleColor={['#6db678','white','#bfbfbeff']} scaleColumn=stage_order />
+  <Column id=stage_name title="Stage" contentType=colorscale scaleColor={['#bfbfbeff','white','#6db678']} scaleColumn=stage_order />
   <Column id=opportunity_name title="Opportunity" />
   <Column id=company_name title="Company" />
   <Column id=primary_country title="Country" />

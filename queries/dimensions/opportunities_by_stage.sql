@@ -1,6 +1,6 @@
--- Purpose: List opportunities grouped by stage for deal flow page
+-- Purpose: List active opportunities for investment pipeline page
 -- Source: dim_opportunities with dimension joins using bridge tables
--- Filters for active pipeline opportunities (not Declined or Committed)
+-- Excludes Lost and Declined (terminal states shown separately)
 
 select
     opp.opportunity_id,
@@ -31,6 +31,6 @@ left join br_opportunity_industries boi
     and boi.primary_flag = true
 left join dim_industries ind
     on boi.industry_id = ind.industry_id
-where stg.name not in ('Declined', 'Committed')
+where stg.name not in ('Lost', 'Declined')  -- Exclude terminal states
   and opp.close_date is not null
-order by stg."order" desc, opp.close_date
+order by stg."order" asc, opp.close_date  -- Ascending order (Sourced first)
