@@ -1,6 +1,10 @@
 ---
-title: Deal Flow
+title: Pipeline
 queries:
+  - pipeline_overview: metrics/pipeline_overview.sql
+  - pipeline_funnel: metrics/pipeline_funnel.sql
+  - pipeline_velocity: metrics/pipeline_stage_velocity.sql
+  - pipeline_sector_forecast: metrics/pipeline_sector_forecast.sql
   - months_slider: helpers/months_slider.sql
   - funds: dimensions/funds.sql
   - stages: dimensions/stages.sql
@@ -13,7 +17,102 @@ queries:
   - opportunities_by_stage: dimensions/opportunities_by_stage.sql
 ---
 
-## Active Opportunities by Stage
+# Investment Pipeline
+
+## Pipeline Overview
+
+<Grid cols=5>
+  <BigValue 
+    data={pipeline_overview}
+    value=total_opportunities
+    fmt="num0"
+    title="Total Opportunities"
+  />
+  <BigValue 
+    data={pipeline_overview}
+    value=total_forecasted_exposure
+    fmt="usd0"
+    title="Total Pipeline Value"
+  />
+  <BigValue 
+    data={pipeline_overview}
+    value=avg_ticket_size
+    fmt="usd0"
+    title="Avg Ticket Size"
+  />
+  <BigValue 
+    data={pipeline_overview}
+    value=expected_deployment_12m
+    fmt="usd0"
+    title="Expected Deployment (12M)"
+  />
+  <BigValue 
+    data={pipeline_overview}
+    value=ic_count
+    fmt="num0"
+    title="At IC Stage"
+  />
+</Grid>
+
+<Grid cols=5>
+  <BigValue 
+    data={pipeline_overview}
+    value=sourced_count
+    fmt="num0"
+    title="Sourced"
+  />
+  <BigValue 
+    data={pipeline_overview}
+    value=screening_count
+    fmt="num0"
+    title="Screening"
+  />
+  <BigValue 
+    data={pipeline_overview}
+    value=ic_count
+    fmt="num0"
+    title="IC Review"
+  />
+  <BigValue 
+    data={pipeline_overview}
+    value=term_sheet_count
+    fmt="num0"
+    title="Term Sheet"
+  />
+  <BigValue 
+    data={pipeline_overview}
+    value=signed_count
+    fmt="num0"
+    title="Signed"
+  />
+</Grid>
+
+<hr class="my-6">
+
+## Pipeline Funnel
+
+<Grid cols=2>
+
+<FunnelChart 
+  data={pipeline_funnel}
+  nameCol=stage_name
+  valueCol=opportunity_count
+  title="Deal Count by Stage"
+/>
+
+<FunnelChart 
+  data={pipeline_funnel}
+  nameCol=stage_name
+  valueCol=total_expected_investment
+  valueFmt="usd0"
+  title="Pipeline Value by Stage"
+/>
+
+</Grid>
+
+<hr class="my-6">
+
+## Active Opportunities
 
 <DataTable
   data={opportunities_by_stage}
@@ -24,13 +123,55 @@ queries:
   <Column id=company_name title="Company" />
   <Column id=primary_country title="Country" />
   <Column id=primary_industry title="Industry" />
-  <Column id=expected_investment_amount title="Expected Investment" fmt=usd0 />
+  <Column id=expected_investment_amount title="Expected Ticket" fmt=usd0 />
   <Column id=expected_close_date title="Expected Close" fmt=mmm-dd-yyyy />
   <Column id=fund_name title="Fund" />
   <Column id=stage_order title="Stage Order" hidden />
 </DataTable>
 
-## Forecast the impact of upcoming deals on your portfolio
+<hr class="my-6">
+
+## Pipeline Velocity & Conversion
+
+<Grid cols=3>
+  <BigValue 
+    data={pipeline_velocity.filter(d => d.stage_name === 'Sourced')}
+    value=avg_days_in_stage
+    fmt="num0"
+    title="Avg Days in Sourced"
+  />
+  <BigValue 
+    data={pipeline_velocity.filter(d => d.stage_name === 'Screening')}
+    value=avg_days_in_stage
+    fmt="num0"
+    title="Avg Days in Screening"
+  />
+  <BigValue 
+    data={pipeline_velocity.filter(d => d.stage_name === 'Investment Committee')}
+    value=avg_days_in_stage
+    fmt="num0"
+    title="Avg Days in IC"
+  />
+</Grid>
+
+<Grid cols=2>
+  <BigValue 
+    data={pipeline_velocity}
+    value=sourced_to_ic_rate
+    fmt="pct0"
+    title="Sourced → IC Conversion"
+  />
+  <BigValue 
+    data={pipeline_velocity}
+    value=ic_to_closed_rate
+    fmt="pct0"
+    title="IC → Closed Conversion"
+  />
+</Grid>
+
+<hr class="my-6">
+
+## Forecast Impact on Portfolio
 
 <Dropdown data={funds} name=fund value=fund_id label=fund_name defaultValue="ALL">
   <DropdownOption value="ALL" valueLabel="All Funds" />
@@ -50,7 +191,7 @@ queries:
 
 <AreaChart
   data={exposure_forecasts}
-  title="Forecast Exposure Over Time"
+  title="Current vs Forecast Exposure"
   subtitle="{inputs.fund.label || 'All Funds'} | Stage: {inputs.stage.label || 'All Stages'} | {inputs.region.value} | {inputs.country.label || 'All Countries'}"
   type="stacked"
   x=month 
@@ -61,7 +202,8 @@ queries:
 
 <AreaMap
   data={exposure_map}
-  title="Forecast Exposure by Country ({inputs.fund.label || 'All Funds'}, {inputs.stage.label || 'All Stages'}) — {$selected_month_label?.[0]?.label}"
+  title="Forecast Exposure by Country — {$selected_month_label?.[0]?.label}"
+  subtitle="{inputs.fund.label || 'All Funds'} | {inputs.stage.label || 'All Stages'}"
   legendType="scalar"
   areaCol="country_code"
   geoId="iso_a2"
