@@ -6,7 +6,48 @@ queries:
   - company_performance_overview: metrics/company_performance_overview.sql
 ---
 
-## Companies
+<Tabs>
+  <Tab label="Portfolio Companies">
+
+## Portfolio Companies  
+
+Active investments across our funds.
+
+<DataTable 
+  data={companies_list.filter(d => d.number_of_instruments > 0)}
+  link=company_link
+  rows=20
+>
+  <Column id=company_name title="Company Name" />
+  <Column id=primary_country title="Country" />
+  <Column id=primary_industry title="Industry" />
+  <Column id=funds title="Funds" fmt="num0" />
+  <Column id=number_of_instruments title="Instruments" fmt="num0" />
+</DataTable>
+
+  </Tab>
+  <Tab label="Pipeline Companies">
+
+## Pipeline Companies  
+
+Companies being tracked in CRM without active investments.
+
+<DataTable 
+  data={companies_list.filter(d => d.number_of_instruments === 0)}
+  link=company_link
+  rows=20
+>
+  <Column id=company_name title="Company Name" />
+  <Column id=primary_country title="Country" />
+  <Column id=primary_industry title="Industry" />
+</DataTable>
+
+  </Tab>
+  <Tab label="All Companies">
+
+## All Companies 
+
+Complete view of portfolio and pipeline companies.
 
 <DataTable 
   data={companies_list}
@@ -14,36 +55,63 @@ queries:
   rows=20
 >
   <Column id=company_name title="Company Name" />
-  <Column id=primary_country title="Primary Country" />
-  <Column id=primary_industry title="Primary Industry" />
+  <Column id=primary_country title="Country" />
+  <Column id=primary_industry title="Industry" />
   <Column id=funds title="Funds" fmt="num0" />
-  <Column id=number_of_instruments title="Number of Instruments" fmt="num0" />
+  <Column id=number_of_instruments title="Instruments" fmt="num0" />
 </DataTable>
 
-## Company Composition
+  </Tab>
+</Tabs>
+
+## Company Overview
+
+<Grid cols=3>
+
+<BigValue 
+  data={[{count: companies_list.length}]}
+  value=count
+  title="Total Companies"
+/>
+
+<BigValue 
+  data={[{count: companies_list.filter(d => d.number_of_instruments > 0).length}]}
+  value=count
+  title="Portfolio Companies"
+/>
+
+<BigValue 
+  data={[{count: companies_list.filter(d => d.number_of_instruments === 0).length}]}
+  value=count
+  title="Pipeline Companies"
+/>
+
+</Grid>
+
+## Portfolio Company Composition
 
 <Grid cols=2>
 
 <ECharts config={{
-  title: { text: 'Companies by Country' },
+  title: { text: 'Portfolio Companies by Country' },
   tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
   series: [{
     type: 'pie',
     radius: '70%',
     data: (companies_breakdown || [])
-      .filter(d => d.dimension_type === 'country')
+      .filter(d => d.dimension_type === 'country' && d.is_portfolio)
       .map(d => ({ name: d.dimension, value: d.company_count }))
   }]
 }} />
 
 <ECharts config={{
-  title: { text: 'Companies by Industry' },
+  title: { text: 'Portfolio Companies by Industry' },
   tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
   series: [{
     type: 'pie',
     radius: '70%',
     data: (companies_breakdown || [])
-      .filter(d => d.dimension_type === 'industry')
+      .filter(d => d.dimension_type === 'industry' && d.is_portfolio)
       .map(d => ({ name: d.dimension, value: d.company_count }))
   }]
 }} />
