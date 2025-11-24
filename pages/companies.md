@@ -1,5 +1,6 @@
 ---
 title: Companies
+sidebar_position: 3
 queries:
   - companies_list: dimensions/companies_list.sql
   - companies_breakdown: metrics/companies_breakdown.sql
@@ -7,7 +8,7 @@ queries:
 ---
 
 <Tabs>
-  <Tab label="Portfolio Companies">
+  <Tab label="Portfolio ({companies_list.filter(d => d.number_of_instruments > 0).length})">
 
 ## Portfolio Companies  
 
@@ -26,7 +27,7 @@ Active investments across our funds.
 </DataTable>
 
   </Tab>
-  <Tab label="Pipeline Companies">
+  <Tab label="Pipeline ({companies_list.filter(d => d.number_of_instruments === 0).length})">
 
 ## Pipeline Companies  
 
@@ -43,7 +44,7 @@ Companies being tracked in CRM without active investments.
 </DataTable>
 
   </Tab>
-  <Tab label="All Companies">
+  <Tab label="All ({companies_list.length})">
 
 ## All Companies 
 
@@ -64,29 +65,7 @@ Complete view of portfolio and pipeline companies.
   </Tab>
 </Tabs>
 
-## Company Overview
-
-<Grid cols=3>
-
-<BigValue 
-  data={[{count: companies_list.length}]}
-  value=count
-  title="Total Companies"
-/>
-
-<BigValue 
-  data={[{count: companies_list.filter(d => d.number_of_instruments > 0).length}]}
-  value=count
-  title="Portfolio Companies"
-/>
-
-<BigValue 
-  data={[{count: companies_list.filter(d => d.number_of_instruments === 0).length}]}
-  value=count
-  title="Pipeline Companies"
-/>
-
-</Grid>
+<hr class="my-6">
 
 ## Portfolio Company Composition
 

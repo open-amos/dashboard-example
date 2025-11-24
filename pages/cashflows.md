@@ -1,5 +1,6 @@
 ---
 title: Cashflows
+sidebar_position: 5
 queries:
   - equity_cashflows: metrics/equity_cashflows_timeseries.sql
   - credit_cashflows: metrics/credit_cashflows_timeseries.sql

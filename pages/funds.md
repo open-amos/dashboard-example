@@ -1,5 +1,6 @@
 ---
 title: Funds
+sidebar_position: 2
 queries:
   - fund_performance_overview: metrics/fund_performance_overview.sql
   - fund_performance_aggregate: metrics/fund_performance_aggregate.sql

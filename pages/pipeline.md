@@ -1,5 +1,6 @@
 ---
 title: Pipeline
+sidebar_position: 4
 queries:
   - pipeline_overview: metrics/pipeline_overview.sql
   - pipeline_funnel: metrics/pipeline_funnel.sql
@@ -54,81 +55,30 @@ queries:
   />
 </Grid>
 
-<Grid cols=4>
-  <BigValue 
-    data={pipeline_overview}
-    value=sourced_count
-    fmt="num0"
-    title="Sourced"
-  />
-  <BigValue 
-    data={pipeline_overview}
-    value=screening_count
-    fmt="num0"
-    title="Screening"
-  />
-  <BigValue 
-    data={pipeline_overview}
-    value=diligence_count
-    fmt="num0"
-    title="Due Diligence"
-  />
-  <BigValue 
-    data={pipeline_overview}
-    value=ic_count
-    fmt="num0"
-    title="IC Review"
-  />
-</Grid>
-
-<Grid cols=4>
-  <BigValue 
-    data={pipeline_overview}
-    value=term_sheet_count
-    fmt="num0"
-    title="Term Sheet"
-  />
-  <BigValue 
-    data={pipeline_overview}
-    value=signed_count
-    fmt="num0"
-    title="Signed"
-  />
-  <BigValue 
-    data={pipeline_overview}
-    value=closed_count
-    fmt="num0"
-    title="Closed"
-  />
-  <BigValue 
-    data={pipeline_overview}
-    value=lost_count
-    fmt="num0"
-    title="Lost"
-    color=negative
-  />
-</Grid>
-
 <hr class="my-6">
 
 ## Pipeline Funnel
 
 <Grid cols=2>
 
-<FunnelChart 
-  data={pipeline_funnel}
-  nameCol=stage_name
-  valueCol=opportunity_count
-  title="Deal Count by Stage"
-/>
-
-<FunnelChart 
-  data={pipeline_funnel}
-  nameCol=stage_name
-  valueCol=total_expected_investment
-  valueFmt="usd0"
-  title="Pipeline Value by Stage"
-/>
+<div>
+  <FunnelChart 
+    data={pipeline_funnel}
+    nameCol=stage_name
+    valueCol=opportunity_count
+    title="Deal Count by Stage"
+  />
+  <Note>Lost: {pipeline_overview[0].lost_count}</Note>
+</div>
+<div>
+  <FunnelChart 
+    data={pipeline_funnel}
+    nameCol=stage_name
+    valueCol=total_expected_investment
+    valueFmt="usd0"
+    title="Pipeline Value by Stage"
+  />
+</div>
 
 </Grid>
 
@@ -214,7 +164,7 @@ queries:
 <AreaChart
   data={exposure_forecasts}
   title="Current vs Forecast Exposure"
-  subtitle="{inputs.fund.label || 'All Funds'} | Stage: {inputs.stage.label || 'All Stages'} | {inputs.region.value} | {inputs.country.label || 'All Countries'}"
+  subtitle="{inputs.fund.label} | {inputs.stage.label} | {inputs.region.label} | {inputs.country.label}"
   type="stacked"
   x=month 
   y=total_exposure_usd
