@@ -1,5 +1,5 @@
 ---
-title: Custom Reports
+title: Reports
 queries:
   - funds_list: metrics/funds_list.sql
   - report_metadata: helpers/report_metadata.sql

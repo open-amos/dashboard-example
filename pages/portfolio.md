@@ -385,24 +385,44 @@ queries:
 
   <hr class="my-6">
 
-  ### Principal Outstanding Trend
+  ### Fund Comparison
+
+  <BarChart 
+    data={fund_performance_overview.filter(d => d.fund_type === 'CREDIT')}
+    x=fund_name
+    y=principal_outstanding
+    yFmt="usd0"
+    title="Principal Outstanding by Fund"
+    swapXY=true
+  />
+
+  <BarChart 
+    data={fund_performance_overview.filter(d => d.fund_type === 'CREDIT')}
+    x=period_end_date
+    y=principal_outstanding
+    series=fund_name
+    yFmt="usd0"
+    title="Principal Outstanding Trend by Fund"
+  />
+
+  <hr class="my-6">
+
+  ### Portfolio Performance
 
   <LineChart 
     data={credit_portfolio_timeseries} 
     x=period_end_date 
     y=total_principal_outstanding
     yFmt="usd0"
-    title="Principal Outstanding Over Time"
+    title="Principal Outstanding Over Time (Credit Funds)"
   />
-
-  ### Capital Activity
 
   <BarChart 
     data={credit_capital_activity} 
     x=period_end_date 
     y={['contributions', 'distributions']}
     yFmt="usd0"
-    title="Capital Activity by Period (Credit)"
+    title="Capital Activity Over Time (Credit Funds)"
     labels={{
       contributions: 'Draws',
       distributions: 'Repayments'
@@ -414,10 +434,12 @@ queries:
     x=period_end_date 
     y=net_cashflow
     yFmt="usd0"
-    title="Net Cashflow by Period (Credit)"
+    title="Net Cashflow Over Time (Credit Funds)"
   />
 
-  ### Credit Portfolio Analysis
+  <hr class="my-6">
+
+  ### Portfolio Structure & Risk Profile
 
   <Grid cols=2>
     <div>
@@ -444,7 +466,9 @@ queries:
     </div>
   </Grid>
 
-  ### Yield Distribution
+  <hr class="my-6">
+
+  ### Yield & Income Analysis
 
   <DataTable 
     data={credit_yield_distribution}
@@ -459,7 +483,9 @@ queries:
     <Column id=avg_spread_bps title="Avg Spread (bps)" fmt="num0" />
   </DataTable>
 
-  ### Exposure Analysis
+  <hr class="my-6">
+
+  ### Portfolio Exposure
 
   <Grid cols=2>
     <div>
@@ -483,44 +509,6 @@ queries:
       />
     </div>
   </Grid>
-
-  ### Credit Funds Overview
-
-  <DataTable 
-    data={funds_list.filter(d => d.fund_type === 'CREDIT')}
-    rows=20
-    link=fund_link
-  >
-    <Column id=fund_name title="Fund Name" />
-    <Column id=total_exposure title="Total Exposure" fmt="usd0" />
-    <Column id=principal_outstanding title="Principal Outstanding" fmt="usd0" />
-    <Column id=undrawn_commitment title="Undrawn" fmt="usd0" />
-    <Column id=interest_income title="Interest Income" fmt="usd0" />
-    <Column id=total_commitments title="Total Commitments" fmt="usd0" />
-    <Column id=number_of_positions title="Positions" fmt="num0" />
-  </DataTable>
-
-  ### Principal Outstanding Comparison
-
-  <BarChart 
-    data={fund_performance_overview.filter(d => d.fund_type === 'CREDIT')}
-    x=fund_name
-    y=principal_outstanding
-    yFmt="usd0"
-    title="Principal Outstanding by Credit Fund"
-    swapXY=true
-  />
-
-  ### Principal Outstanding Over Time
-
-  <BarChart 
-    data={fund_performance_overview.filter(d => d.fund_type === 'CREDIT')}
-    x=period_end_date
-    y=principal_outstanding
-    series=fund_name
-    yFmt="usd0"
-    title="Credit Fund Principal Outstanding Trend"
-  />
 
 </Tab>
 
