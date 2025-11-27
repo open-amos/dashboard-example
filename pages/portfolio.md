@@ -24,19 +24,19 @@ queries:
   - funds: dimensions/funds.sql
 ---
 
-<Tabs color=primary fullWidth=true>
+<Tabs color=primary>
 
 {#if equity_portfolio_metrics.length > 0}
 
-<Tab label="Equity Portfolio">
+<Tab label="Equity">
 
-  # Equity Portfolio
+  ## Equity Portfolio
 
   <Grid cols=4>
     <BigValue 
       data={equity_portfolio_metrics} 
       value=total_nav
-      fmt="usd0"
+      fmt="usd1m"
       title="Total NAV"
     />
     <BigValue 
@@ -63,19 +63,19 @@ queries:
     <BigValue 
       data={equity_portfolio_metrics} 
       value=total_commitments
-      fmt="usd0"
+      fmt="usd1m"
       title="Total Commitments"
     />
     <BigValue 
       data={equity_portfolio_metrics} 
       value=unfunded_commitment
-      fmt="usd0"
+      fmt="usd1m"
       title="Unfunded Commitment"
     />
     <BigValue 
       data={equity_portfolio_metrics} 
       value=total_distributions
-      fmt="usd0"
+      fmt="usd1m"
       title="Total Distributions"
     />
     <BigValue 
@@ -318,33 +318,33 @@ queries:
 
 {#if credit_portfolio_metrics.length > 0}
 
-<Tab label="Credit Portfolio">
+<Tab label="Credit">
 
-  # Credit Portfolio
+  ## Credit Portfolio
 
   <Grid cols=4>
     <BigValue 
       data={credit_portfolio_metrics} 
       value=total_exposure
-      fmt="usd0"
+      fmt="usd1m"
       title="Total Exposure"
     />
     <BigValue 
       data={credit_portfolio_metrics} 
       value=total_principal_outstanding
-      fmt="usd0"
+      fmt="usd1m"
       title="Principal Outstanding"
     />
     <BigValue 
       data={credit_portfolio_metrics} 
       value=total_undrawn_commitment
-      fmt="usd0"
+      fmt="usd1m"
       title="Undrawn Commitment"
     />
     <BigValue 
       data={credit_portfolio_metrics} 
       value=total_interest_income
-      fmt="usd0"
+      fmt="usd1m"
       title="Interest Income"
     />
   </Grid>
@@ -353,7 +353,7 @@ queries:
     <BigValue 
       data={credit_portfolio_metrics} 
       value=total_commitments
-      fmt="usd0"
+      fmt="usd1m"
       title="Total Commitments"
     />
     <BigValue 
@@ -584,150 +584,3 @@ queries:
 {/if}
 
 </Tabs>
-
-<style>
-  .fund-card-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-  }
-
-  .fund-card {
-    border: 1px solid #e5e7eb;
-    border-radius: 0.5rem;
-    padding: 1.25rem;
-    transition: all 0.2s;
-    background: white;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .fund-card:hover {
-    border-color: #3b82f6;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
-  }
-
-  .fund-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 0.75rem;
-  }
-
-  .fund-header h4 {
-    margin: 0;
-    font-size: 1rem;
-    font-weight: 600;
-    line-height: 1.4;
-  }
-
-  .fund-badge {
-    padding: 0.25rem 0.625rem;
-    border-radius: 9999px;
-    font-size: 0.625rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .fund-badge.equity {
-    background-color: #dbeafe;
-    color: #1e40af;
-  }
-
-  .fund-badge.credit {
-    background-color: #d1fae5;
-    color: #065f46;
-  }
-
-  .fund-metrics {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 0.75rem;
-  }
-
-  .metric {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .metric-label {
-    font-size: 0.75rem;
-    color: #6b7280;
-    font-weight: 500;
-  }
-
-  .metric-value {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #111827;
-  }
-
-  .fund-action {
-    margin-top: auto;
-    color: #3b82f6;
-    font-weight: 500;
-    font-size: 0.875rem;
-  }
-
-  .fund-card:hover .fund-action {
-    color: #2563eb;
-  }
-
-  :global(.dark) .fund-card {
-    background: #1f2937;
-    border-color: #374151;
-  }
-
-  :global(.dark) .fund-card:hover {
-    border-color: #3b82f6;
-  }
-
-  :global(.dark) .fund-badge.equity {
-    background-color: #1e3a8a;
-    color: #93c5fd;
-  }
-
-  :global(.dark) .fund-badge.credit {
-    background-color: #064e3b;
-    color: #6ee7b7;
-  }
-
-  :global(.dark) .metric-label {
-    color: #9ca3af;
-  }
-
-  :global(.dark) .metric-value {
-    color: #f9fafb;
-  }
-
-  :global(.dark) .fund-action {
-    border-top-color: #374151;
-    color: #60a5fa;
-  }
-
-  :global(.dark) .fund-card:hover .fund-action {
-    color: #93c5fd;
-  }
-
-  .section-highlight {
-    background:#F5F6F8; 
-    padding: 10px 20px; 
-    border-radius: 5px; 
-    margin-top: 20px; 
-    margin-bottom: 20px
-  }
-
-  .section-highlight-chart {
-    background: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-</style>

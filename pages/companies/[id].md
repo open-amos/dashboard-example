@@ -58,19 +58,19 @@ Primary country: {company_info[0].primary_country}
   <BigValue 
     data={total_exposure} 
     value=total_exposure 
-    fmt=usd0 
+    fmt=usd1m 
     title="Total Exposure"
   />
   <BigValue 
     data={total_exposure} 
     value=equity_exposure 
-    fmt=usd0 
+    fmt=usd1m 
     title="Equity Exposure"
   />
   <BigValue 
     data={total_exposure} 
     value=credit_exposure 
-    fmt=usd0 
+    fmt=usd1m 
     title="Credit Exposure"
   />
 </Grid>

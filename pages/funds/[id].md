@@ -26,7 +26,7 @@ queries:
 <BigValue 
   data={fund_key_metrics} 
   value=fund_nav
-  fmt="usd0"
+  fmt="usd1m"
   title="Fund NAV"
 />
 
@@ -58,21 +58,21 @@ queries:
 <BigValue 
   data={fund_key_metrics} 
   value=total_commitments
-  fmt="usd0"
+  fmt="usd1m"
   title="Total Commitments"
 />
 
 <BigValue 
   data={fund_key_metrics} 
   value=unfunded_commitment
-  fmt="usd0"
+  fmt="usd1m"
   title="Unfunded Commitment"
 />
 
 <BigValue 
   data={fund_key_metrics} 
   value=total_distributions
-  fmt="usd0"
+  fmt="usd1m"
   title="Total Distributions"
 />
 
@@ -217,28 +217,28 @@ No equity holdings found for this fund.
 <BigValue 
   data={fund_key_metrics} 
   value=total_exposure
-  fmt="usd0"
+  fmt="usd1m"
   title="Total Exposure"
 />
 
 <BigValue 
   data={fund_key_metrics} 
   value=principal_outstanding
-  fmt="usd0"
+  fmt="usd1m"
   title="Principal Outstanding"
 />
 
 <BigValue 
   data={fund_key_metrics} 
   value=undrawn_commitment
-  fmt="usd0"
+  fmt="usd1m"
   title="Undrawn Commitment"
 />
 
 <BigValue 
   data={fund_key_metrics} 
   value=interest_income
-  fmt="usd0"
+  fmt="usd1m"
   title="Interest Income"
 />
 
@@ -249,21 +249,21 @@ No equity holdings found for this fund.
 <BigValue 
   data={fund_key_metrics} 
   value=total_commitments
-  fmt="usd0"
+  fmt="usd1m"
   title="Total Commitments"
 />
 
 <BigValue 
   data={fund_key_metrics} 
   value=total_called_capital
-  fmt="usd0"
+  fmt="usd1m"
   title="Total Called Capital"
 />
 
 <BigValue 
   data={fund_key_metrics} 
   value=total_distributions
-  fmt="usd0"
+  fmt="usd1m"
   title="Total Distributions"
 />
 
