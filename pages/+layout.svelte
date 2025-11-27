@@ -11,6 +11,7 @@
 	{data}
 	logo={`${base}/amos.png`}
 	neverShowQueries={true}
+	fullWidth=true
 	hideTOC=true
 	githubRepo="https://github.com/open-amos">
 	<slot slot="content" />

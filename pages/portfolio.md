@@ -24,16 +24,13 @@ queries:
   - funds: dimensions/funds.sql
 ---
 
-<Tabs color=primary>
-
+<Tabs color=primary fullWidth=true>
 
 {#if equity_portfolio_metrics.length > 0}
 
-<Tab label="Equity">
+<Tab label="Equity Portfolio">
 
-  ## Equity Portfolio
-
-  ### Key Performance Indicators
+  # Equity Portfolio
 
   <Grid cols=4>
     <BigValue 
@@ -89,9 +86,9 @@ queries:
     />
   </Grid>
 
-  <hr class="my-6">
+  <div class="section-highlight">
 
-  ### Funds in This Portfolio
+  ## Funds
 
   <Grid cols=3>
 
@@ -116,9 +113,10 @@ queries:
           <span class="metric-label">DPI</span>
           <span class="metric-value">{fund.dpi?.toFixed(2) || 'N/A'}</span>
         </div>
+      </div>
+      <div class="fund-metrics">
         <div class="metric">
-          <span class="metric-label">Holdings</span>
-          <span class="metric-value">{fund.number_of_portfolio_companies || 0}</span>
+          <span class="metric-label">Holdings: {fund.number_of_portfolio_companies || 0}</span>
         </div>
       </div>
       <div class="fund-action">
@@ -131,70 +129,98 @@ queries:
 
   </Grid>
 
-  <hr class="my-6">
+  </div>
 
-  ### Fund Comparison
+  <div class="section-highlight">
 
-  <BarChart 
-    data={fund_performance_overview.filter(d => d.fund_type === 'EQUITY')}
-    x=fund_name
-    y=tvpi
-    yFmt="num1"
-    title="TVPI by Equity Fund"
-    swapXY=true
-  />
-
-  <BarChart 
-    data={fund_performance_overview.filter(d => d.fund_type === 'EQUITY')}
-    x=period_end_date
-    y=fund_nav
-    series=fund_name
-    yFmt="usd0"
-    title="Equity Fund NAV Trend"
-  />
-
-  <hr class="my-6">
-
-  ### Portfolio Performance Overview
-
-  <LineChart 
-    data={equity_portfolio_timeseries} 
-    x=period_end_date 
-    y=total_nav
-    yFmt="usd0"
-    title="NAV by Period (Equity Portfolio)"
-  />
-
-  <hr class="my-6">
-
-  ### Portfolio Capital Activity
-
-  <BarChart 
-    data={equity_capital_activity} 
-    x=period_end_date 
-    y={['contributions', 'distributions']}
-    yFmt="usd0"
-    title="Capital Activity by Period (Equity Portfolio)"
-    labels={{
-      contributions: 'Contributions',
-      distributions: 'Distributions'
-    }}
-  />
-  
-  <LineChart 
-    data={equity_capital_activity} 
-    x=period_end_date 
-    y=net_cashflow
-    yFmt="usd0"
-    title="Net Cashflow by Period (Equity Portfolio)"
-  />
-
-  <hr class="my-6">
-
-  ### Portfolio Exposure
+  ## Fund Comparison
 
   <Grid cols=2>
-    <div>
+
+    <div class="section-highlight-chart">
+      <BarChart 
+        data={fund_performance_overview.filter(d => d.fund_type === 'EQUITY')}
+        x=fund_name
+        y=tvpi
+        yFmt="num1"
+        title="TVPI by Equity Fund"
+        swapXY=true
+      />
+    </div>
+
+    <div class="section-highlight-chart">
+
+      <BarChart 
+        data={fund_performance_overview.filter(d => d.fund_type === 'EQUITY')}
+        x=period_end_date
+        y=fund_nav
+        series=fund_name
+        yFmt="usd0"
+        title="Equity Fund NAV Trend"
+      />
+
+    </div>
+
+  </Grid>
+
+  </div>
+
+  <div class="section-highlight">
+
+  ## Portfolio Performance Overview
+
+  <div class="section-highlight-chart">
+    <LineChart 
+      data={equity_portfolio_timeseries} 
+      x=period_end_date 
+      y=total_nav
+      yFmt="usd0"
+      title="NAV by Period (Equity Portfolio)"
+    />
+  </div>
+
+  </div>
+
+  <div class="section-highlight">
+
+  ## Portfolio Capital Activity
+
+  <Grid cols=2>
+
+    <div class="section-highlight-chart">
+      <BarChart 
+        data={equity_capital_activity} 
+        x=period_end_date 
+        y={['contributions', 'distributions']}
+        yFmt="usd0"
+        title="Capital Activity by Period (Equity Portfolio)"
+        labels={{
+          contributions: 'Contributions',
+          distributions: 'Distributions'
+        }}
+      />
+    </div>
+    
+    <div class="section-highlight-chart">
+      <LineChart 
+        data={equity_capital_activity} 
+        x=period_end_date 
+        y=net_cashflow
+        yFmt="usd0"
+        title="Net Cashflow by Period (Equity Portfolio)"
+      />
+    </div>
+
+  </Grid>
+
+  </div>
+
+  <div class="section-highlight">
+
+  ## Portfolio Exposure
+
+  <Grid cols=2>
+    <div class="section-highlight-chart">
       <BarChart 
         data={sector_exposure.filter(d => d.instrument_type === 'EQUITY')} 
         x=industry_name 
@@ -204,7 +230,7 @@ queries:
         title="Sector Exposure (Equity)"
       />
     </div>
-    <div>
+    <div class="section-highlight-chart">
       <BarChart 
         data={country_exposure.filter(d => d.instrument_type === 'EQUITY')} 
         x=country_name 
@@ -216,36 +242,45 @@ queries:
     </div>
   </Grid>
 
-  <hr class="my-6">
+  </div>
 
-  ### Position Performance
+  <div class="section-highlight">
 
-  <ScatterPlot 
-    data={portfolio_positions.filter(d => d.instrument_type === 'EQUITY')}
-    x=gross_irr_approx
-    y=gross_moic
-    size=cost_basis
-    series=fund_name
-    tooltipTitle=instrument_name
-    xFmt="pct1"
-    yFmt="num1"
-    title="MOIC vs IRR (Approx) - Equity"
-    xAxisTitle="Approx IRR"
-    yAxisTitle="Gross MOIC"
-  />
-
-  <BarChart 
-    data={portfolio_positions.filter(d => d.instrument_type === 'EQUITY')}
-    x=instrument_name
-    y=gross_moic
-    yFmt="num1"
-    title="Top Equity Positions by MOIC"
-    swapXY=true
-    limit=10
-  />
+  ## Position Performance
 
   <Grid cols=2>
-    <div>
+
+    <div class="section-highlight-chart">
+      <ScatterPlot 
+        data={portfolio_positions.filter(d => d.instrument_type === 'EQUITY')}
+        x=gross_irr_approx
+        y=gross_moic
+        size=cost_basis
+        series=fund_name
+        tooltipTitle=instrument_name
+        xFmt="pct1"
+        yFmt="num1"
+        title="MOIC vs IRR (Approx) - Equity"
+        xAxisTitle="Approx IRR"
+        yAxisTitle="Gross MOIC"
+      />
+    </div>
+
+    <div class="section-highlight-chart">
+      <BarChart 
+        data={portfolio_positions.filter(d => d.instrument_type === 'EQUITY').sort((a, b) => b.gross_moic - a.gross_moic).slice(0, 10)}
+        x=instrument_name
+        y=gross_moic
+        yFmt="num1"
+        title="Top 10 Equity Positions by MOIC"
+        swapXY=true
+      />
+    </div>
+
+  </Grid>
+
+  <Grid cols=2>
+    <div class="section-highlight-chart">
       <DataTable 
         data={top_contributors.filter(d => d.instrument_type === 'EQUITY')}
         rows=10
@@ -259,7 +294,7 @@ queries:
         <Column id=irr_approx title="IRR (Approx)" fmt="pct1" />
       </DataTable>
     </div>
-    <div>
+    <div class="section-highlight-chart">
       <DataTable 
         data={top_detractors.filter(d => d.instrument_type === 'EQUITY')}
         rows=10
@@ -275,17 +310,17 @@ queries:
     </div>
   </Grid>
 
+  </div>
+
 </Tab>
 
 {/if}
 
 {#if credit_portfolio_metrics.length > 0}
 
-<Tab label="Credit">
+<Tab label="Credit Portfolio">
 
-  ## Credit Portfolio
-
-  ### Key Performance Indicators
+  # Credit Portfolio
 
   <Grid cols=4>
     <BigValue 
@@ -341,9 +376,9 @@ queries:
     />
   </Grid>
 
-  <hr class="my-6">
+  <div class="section-highlight">
 
-  ### Funds in This Portfolio
+  ## Funds
 
   <Grid cols=3>
 
@@ -383,78 +418,102 @@ queries:
 
   </Grid>
 
-  <hr class="my-6">
+  </div>
 
-  ### Fund Comparison
+  <div class="section-highlight">
 
-  <BarChart 
-    data={fund_performance_overview.filter(d => d.fund_type === 'CREDIT')}
-    x=fund_name
-    y=principal_outstanding
-    yFmt="usd0"
-    title="Principal Outstanding by Fund"
-    swapXY=true
-  />
-
-  <BarChart 
-    data={fund_performance_overview.filter(d => d.fund_type === 'CREDIT')}
-    x=period_end_date
-    y=principal_outstanding
-    series=fund_name
-    yFmt="usd0"
-    title="Principal Outstanding Trend by Fund"
-  />
-
-  <hr class="my-6">
-
-  ### Portfolio Performance
-
-  <LineChart 
-    data={credit_portfolio_timeseries} 
-    x=period_end_date 
-    y=total_principal_outstanding
-    yFmt="usd0"
-    title="Principal Outstanding Over Time (Credit Funds)"
-  />
-
-  <BarChart 
-    data={credit_capital_activity} 
-    x=period_end_date 
-    y={['contributions', 'distributions']}
-    yFmt="usd0"
-    title="Capital Activity Over Time (Credit Funds)"
-    labels={{
-      contributions: 'Draws',
-      distributions: 'Repayments'
-    }}
-  />
-  
-  <LineChart 
-    data={credit_capital_activity} 
-    x=period_end_date 
-    y=net_cashflow
-    yFmt="usd0"
-    title="Net Cashflow Over Time (Credit Funds)"
-  />
-
-  <hr class="my-6">
-
-  ### Portfolio Structure & Risk Profile
+  ## Fund Comparison
 
   <Grid cols=2>
-    <div>
+
+    <div class="section-highlight-chart">
+      <BarChart 
+        data={fund_performance_overview.filter(d => d.fund_type === 'CREDIT')}
+        x=fund_name
+        y=principal_outstanding
+        yFmt="usd0"
+        title="Principal Outstanding by Fund"
+        swapXY=true
+      />
+    </div>
+
+    <div class="section-highlight-chart">
+      <BarChart 
+        data={fund_performance_overview.filter(d => d.fund_type === 'CREDIT')}
+        x=period_end_date
+        y=principal_outstanding
+        series=fund_name
+        yFmt="usd0"
+        title="Principal Outstanding Trend by Fund"
+      />
+    </div>
+
+  </Grid>
+
+  </div>
+
+  <div class="section-highlight">
+
+  ## Portfolio Performance
+
+  <Grid cols=2>
+
+    <div class="section-highlight-chart">
+      <LineChart 
+        data={credit_portfolio_timeseries} 
+        x=period_end_date 
+        y=total_principal_outstanding
+        yFmt="usd0"
+        title="Principal Outstanding Over Time (Credit Funds)"
+      />
+    </div>
+
+    <div class="section-highlight-chart">
+      <BarChart 
+        data={credit_capital_activity} 
+        x=period_end_date 
+        y={['contributions', 'distributions']}
+        yFmt="usd0"
+        title="Capital Activity Over Time (Credit Funds)"
+        labels={{
+          contributions: 'Draws',
+          distributions: 'Repayments'
+        }}
+      />
+    </div>
+
+  </Grid>
+  
+  <div class="section-highlight-chart">
+    <LineChart 
+      data={credit_capital_activity} 
+      x=period_end_date 
+      y=net_cashflow
+      yFmt="usd0"
+      title="Net Cashflow Over Time (Credit Funds)"
+    />
+  </div>
+
+  </div>
+
+  <div class="section-highlight">
+
+  ## Portfolio Structure & Risk Profile
+
+  <Grid cols=2>
+    <div class="section-highlight-chart">
       <BarChart 
         data={credit_maturity_ladder} 
         x=maturity_year 
         y=principal_maturing
-        xFmt="####"
+        xFmt="###"
         yFmt="usd0"
         title="Maturity Ladder"
         xAxisTitle="Maturity Year"
         yAxisTitle="Principal Maturing"
       />
     </div>
-    <div>
+    <div class="section-highlight-chart">
       <BarChart 
         data={credit_exposure_by_rank} 
         x=security_rank 
@@ -466,9 +525,42 @@ queries:
     </div>
   </Grid>
 
-  <hr class="my-6">
+  </div>
 
-  ### Yield & Income Analysis
+  <div class="section-highlight">
+
+  ## Portfolio Exposure
+
+  <Grid cols=2>
+    <div class="section-highlight-chart">
+      <BarChart 
+        data={sector_exposure.filter(d => d.instrument_type === 'CREDIT')} 
+        x=industry_name 
+        y=exposure_usd
+        yFmt="usd0"
+        swapXY=true
+        title="Sector Exposure (Credit)"
+      />
+    </div>
+    <div class="section-highlight-chart">
+      <BarChart 
+        data={country_exposure.filter(d => d.instrument_type === 'CREDIT')} 
+        x=country_name 
+        y=exposure
+        yFmt="usd0"
+        swapXY=true
+        title="Country Exposure (Credit)"
+      />
+    </div>
+  </Grid>
+
+  </div>
+
+  <div class="section-highlight">
+
+  ## Yield & Income Analysis
+
+  <div class="section-highlight-chart">
 
   <DataTable 
     data={credit_yield_distribution}
@@ -483,32 +575,9 @@ queries:
     <Column id=avg_spread_bps title="Avg Spread (bps)" fmt="num0" />
   </DataTable>
 
-  <hr class="my-6">
+  </div>
 
-  ### Portfolio Exposure
-
-  <Grid cols=2>
-    <div>
-      <BarChart 
-        data={sector_exposure.filter(d => d.instrument_type === 'CREDIT')} 
-        x=industry_name 
-        y=exposure_usd
-        yFmt="usd0"
-        swapXY=true
-        title="Sector Exposure (Credit)"
-      />
-    </div>
-    <div>
-      <BarChart 
-        data={country_exposure.filter(d => d.instrument_type === 'CREDIT')} 
-        x=country_name 
-        y=exposure
-        yFmt="usd0"
-        swapXY=true
-        title="Country Exposure (Credit)"
-      />
-    </div>
-  </Grid>
+  </div>
 
 </Tab>
 
@@ -577,7 +646,7 @@ queries:
 
   .fund-metrics {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 0.75rem;
   }
 
@@ -644,5 +713,21 @@ queries:
 
   :global(.dark) .fund-card:hover .fund-action {
     color: #93c5fd;
+  }
+
+  .section-highlight {
+    background:#F5F6F8; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    margin-top: 20px; 
+    margin-bottom: 20px
+  }
+
+  .section-highlight-chart {
+    background: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 </style>
