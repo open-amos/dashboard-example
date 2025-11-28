@@ -1,4 +1,6 @@
 ---
+title: Quarterly Fund Report
+hide_title: true
 queries:
   - fund_key_metrics: metrics/fund_key_metrics.sql
   - fund_metrics_timeseries: metrics/fund_metrics_timeseries.sql
