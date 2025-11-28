@@ -36,7 +36,7 @@ queries:
     <BigValue 
       data={equity_portfolio_metrics} 
       value=total_nav
-      fmt="usd1m"
+      fmt="usd2m"
       title="Total NAV"
     />
     <BigValue 
@@ -63,19 +63,19 @@ queries:
     <BigValue 
       data={equity_portfolio_metrics} 
       value=total_commitments
-      fmt="usd1m"
+      fmt="usd2m"
       title="Total Commitments"
     />
     <BigValue 
       data={equity_portfolio_metrics} 
       value=unfunded_commitment
-      fmt="usd1m"
+      fmt="usd2m"
       title="Unfunded Commitment"
     />
     <BigValue 
       data={equity_portfolio_metrics} 
       value=total_distributions
-      fmt="usd1m"
+      fmt="usd2m"
       title="Total Distributions"
     />
     <BigValue 
@@ -155,7 +155,7 @@ queries:
         x=period_end_date
         y=fund_nav
         series=fund_name
-        yFmt="usd0"
+        yFmt="usd2m"
         title="Equity Fund NAV Trend"
       />
 
@@ -174,7 +174,7 @@ queries:
       data={equity_portfolio_timeseries} 
       x=period_end_date 
       y=total_nav
-      yFmt="usd0"
+      yFmt="usd2m"
       title="NAV by Period (Equity Portfolio)"
     />
   </div>
@@ -192,7 +192,7 @@ queries:
         data={equity_capital_activity} 
         x=period_end_date 
         y={['contributions', 'distributions']}
-        yFmt="usd0"
+        yFmt="usd2m"
         title="Capital Activity by Period (Equity Portfolio)"
         labels={{
           contributions: 'Contributions',
@@ -206,7 +206,7 @@ queries:
         data={equity_capital_activity} 
         x=period_end_date 
         y=net_cashflow
-        yFmt="usd0"
+        yFmt="usd2m"
         title="Net Cashflow by Period (Equity Portfolio)"
       />
     </div>
@@ -225,7 +225,7 @@ queries:
         data={sector_exposure.filter(d => d.instrument_type === 'EQUITY')} 
         x=industry_name 
         y=exposure_usd
-        yFmt="usd0"
+        yFmt="usd2m"
         swapXY=true
         title="Sector Exposure (Equity)"
       />
@@ -235,7 +235,7 @@ queries:
         data={country_exposure.filter(d => d.instrument_type === 'EQUITY')} 
         x=country_name 
         y=exposure
-        yFmt="usd0"
+        yFmt="usd2m"
         swapXY=true
         title="Country Exposure (Equity)"
       />
@@ -289,7 +289,7 @@ queries:
       >
         <Column id=company_name title="Company" />
         <Column id=fund_name title="Fund" />
-        <Column id=total_return title="Total Return" fmt="usd0" />
+        <Column id=total_return title="Total Return" fmt="usd2m" />
         <Column id=moic title="MOIC" fmt="num2" />
         <Column id=irr_approx title="IRR (Approx)" fmt="pct1" />
       </DataTable>
@@ -303,7 +303,7 @@ queries:
       >
         <Column id=company_name title="Company" />
         <Column id=fund_name title="Fund" />
-        <Column id=total_return title="Total Return" fmt="usd0" />
+        <Column id=total_return title="Total Return" fmt="usd2m" />
         <Column id=moic title="MOIC" fmt="num2" />
         <Column id=irr_approx title="IRR (Approx)" fmt="pct1" />
       </DataTable>
@@ -326,25 +326,25 @@ queries:
     <BigValue 
       data={credit_portfolio_metrics} 
       value=total_exposure
-      fmt="usd1m"
+      fmt="usd2m"
       title="Total Exposure"
     />
     <BigValue 
       data={credit_portfolio_metrics} 
       value=total_principal_outstanding
-      fmt="usd1m"
+      fmt="usd2m"
       title="Principal Outstanding"
     />
     <BigValue 
       data={credit_portfolio_metrics} 
       value=total_undrawn_commitment
-      fmt="usd1m"
+      fmt="usd2m"
       title="Undrawn Commitment"
     />
     <BigValue 
       data={credit_portfolio_metrics} 
       value=total_interest_income
-      fmt="usd1m"
+      fmt="usd2m"
       title="Interest Income"
     />
   </Grid>
@@ -353,7 +353,7 @@ queries:
     <BigValue 
       data={credit_portfolio_metrics} 
       value=total_commitments
-      fmt="usd1m"
+      fmt="usd2m"
       title="Total Commitments"
     />
     <BigValue 
@@ -431,7 +431,7 @@ queries:
         data={fund_performance_overview.filter(d => d.fund_type === 'CREDIT')}
         x=fund_name
         y=principal_outstanding
-        yFmt="usd0"
+        yFmt="usd2m"
         title="Principal Outstanding by Fund"
         swapXY=true
       />
@@ -443,7 +443,7 @@ queries:
         x=period_end_date
         y=principal_outstanding
         series=fund_name
-        yFmt="usd0"
+        yFmt="usd2m"
         title="Principal Outstanding Trend by Fund"
       />
     </div>
@@ -463,7 +463,7 @@ queries:
         data={credit_portfolio_timeseries} 
         x=period_end_date 
         y=total_principal_outstanding
-        yFmt="usd0"
+        yFmt="usd2m"
         title="Principal Outstanding Over Time (Credit Funds)"
       />
     </div>
@@ -473,7 +473,7 @@ queries:
         data={credit_capital_activity} 
         x=period_end_date 
         y={['contributions', 'distributions']}
-        yFmt="usd0"
+        yFmt="usd2m"
         title="Capital Activity Over Time (Credit Funds)"
         labels={{
           contributions: 'Draws',
@@ -489,7 +489,7 @@ queries:
       data={credit_capital_activity} 
       x=period_end_date 
       y=net_cashflow
-      yFmt="usd0"
+      yFmt="usd2m"
       title="Net Cashflow Over Time (Credit Funds)"
     />
   </div>
@@ -507,7 +507,7 @@ queries:
         x=maturity_year 
         y=principal_maturing
         xFmt="###"
-        yFmt="usd0"
+        yFmt="usd2m"
         title="Maturity Ladder"
         xAxisTitle="Maturity Year"
         yAxisTitle="Principal Maturing"
@@ -518,7 +518,7 @@ queries:
         data={credit_exposure_by_rank} 
         x=security_rank 
         y=total_principal_outstanding
-        yFmt="usd0"
+        yFmt="usd2m"
         swapXY=true
         title="Exposure by Security Rank"
       />
@@ -537,7 +537,7 @@ queries:
         data={sector_exposure.filter(d => d.instrument_type === 'CREDIT')} 
         x=industry_name 
         y=exposure_usd
-        yFmt="usd0"
+        yFmt="usd2m"
         swapXY=true
         title="Sector Exposure (Credit)"
       />
@@ -547,7 +547,7 @@ queries:
         data={country_exposure.filter(d => d.instrument_type === 'CREDIT')} 
         x=country_name 
         y=exposure
-        yFmt="usd0"
+        yFmt="usd2m"
         swapXY=true
         title="Country Exposure (Credit)"
       />
@@ -570,7 +570,7 @@ queries:
     <Column id=interest_index title="Interest Index" />
     <Column id=yield_bucket title="Yield Bucket" />
     <Column id=number_of_loans title="# Loans" fmt="num0" />
-    <Column id=total_principal_outstanding title="Principal Outstanding" fmt="usd0" />
+    <Column id=total_principal_outstanding title="Principal Outstanding" fmt="usd2m" />
     <Column id=avg_yield title="Avg Yield" fmt="pct1" />
     <Column id=avg_spread_bps title="Avg Spread (bps)" fmt="num0" />
   </DataTable>

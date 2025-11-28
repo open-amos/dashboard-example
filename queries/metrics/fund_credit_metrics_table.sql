@@ -20,11 +20,11 @@ position_count as (
   where mpp.fund_id = '${params.id}'
     and mpp.instrument_type = 'CREDIT'
 )
-select 'Total Exposure' as metric, total_exposure as value, 'usd0' as format from fund_data
-union all select 'Principal Outstanding', principal_outstanding, 'usd0' from fund_data
-union all select 'Undrawn Commitment', undrawn_commitment, 'usd0' from fund_data
-union all select 'Interest Income', interest_income, 'usd0' from fund_data
-union all select 'Total Commitments', total_commitments, 'usd0' from fund_data
-union all select 'Total Called Capital', total_called_capital, 'usd0' from fund_data
-union all select 'Total Distributions', total_distributions, 'usd0' from fund_data
+select 'Total Exposure' as metric, total_exposure as value, 'usd2m' as format from fund_data
+union all select 'Principal Outstanding', principal_outstanding, 'usd2m' from fund_data
+union all select 'Undrawn Commitment', undrawn_commitment, 'usd2m' from fund_data
+union all select 'Interest Income', interest_income, 'usd2m' from fund_data
+union all select 'Total Commitments', total_commitments, 'usd2m' from fund_data
+union all select 'Total Called Capital', total_called_capital, 'usd2m' from fund_data
+union all select 'Total Distributions', total_distributions, 'usd2m' from fund_data
 union all select 'Number of Positions', (select position_count from position_count), 'num0'

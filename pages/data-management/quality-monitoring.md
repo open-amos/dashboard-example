@@ -44,7 +44,7 @@ This dashboard tracks variances between reported values (from fund administrator
   x=period_end_date
   y={['fund_nav_reported', 'fund_nav_calculated']}
   series=fund_name
-  yFmt="usd0"
+  yFmt="usd2m"
   title="NAV: Reported vs Calculated by Fund"
 />
 
@@ -70,7 +70,7 @@ This dashboard tracks variances between reported values (from fund administrator
   x=period_end_date
   y={['called_capital_reported', 'called_capital_calculated']}
   series=fund_name
-  yFmt="usd0"
+  yFmt="usd2m"
   title="Called Capital: Reported vs Calculated by Fund"
 />
 
@@ -96,7 +96,7 @@ This dashboard tracks variances between reported values (from fund administrator
   x=period_end_date
   y={['total_distributions_reported', 'total_distributions_calculated']}
   series=fund_name
-  yFmt="usd0"
+  yFmt="usd2m"
   title="Distributions: Reported vs Calculated by Fund"
 />
 
@@ -118,17 +118,17 @@ This dashboard tracks variances between reported values (from fund administrator
 <DataTable data={variance_check}>
   <Column id=fund_name title="Fund" />
   <Column id=period_end_date title="Period" />
-  <Column id=fund_nav_reported title="NAV (Reported)" fmt="usd0" />
-  <Column id=fund_nav_calculated title="NAV (Calculated)" fmt="usd0" />
-  <Column id=nav_variance title="NAV Variance" fmt="usd0" />
+  <Column id=fund_nav_reported title="NAV (Reported)" fmt="usd2m" />
+  <Column id=fund_nav_calculated title="NAV (Calculated)" fmt="usd2m" />
+  <Column id=nav_variance title="NAV Variance" fmt="usd2m" />
   <Column id=nav_variance_pct title="NAV Var %" fmt="pct2" />
-  <Column id=called_capital_reported title="Called Capital (Reported)" fmt="usd0" />
-  <Column id=called_capital_calculated title="Called Capital (Calculated)" fmt="usd0" />
-  <Column id=called_capital_variance title="Called Capital Variance" fmt="usd0" />
+  <Column id=called_capital_reported title="Called Capital (Reported)" fmt="usd2m" />
+  <Column id=called_capital_calculated title="Called Capital (Calculated)" fmt="usd2m" />
+  <Column id=called_capital_variance title="Called Capital Variance" fmt="usd2m" />
   <Column id=called_capital_variance_pct title="Called Capital Var %" fmt="pct2" />
-  <Column id=total_distributions_reported title="Distributions (Reported)" fmt="usd0" />
-  <Column id=total_distributions_calculated title="Distributions (Calculated)" fmt="usd0" />
-  <Column id=distributions_variance title="Distributions Variance" fmt="usd0" />
+  <Column id=total_distributions_reported title="Distributions (Reported)" fmt="usd2m" />
+  <Column id=total_distributions_calculated title="Distributions (Calculated)" fmt="usd2m" />
+  <Column id=distributions_variance title="Distributions Variance" fmt="usd2m" />
   <Column id=distributions_variance_pct title="Distributions Var %" fmt="pct2" />
   <Column id=variance_flag title="Status" />
 </DataTable>

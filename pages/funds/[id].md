@@ -26,7 +26,7 @@ queries:
 <BigValue 
   data={fund_key_metrics} 
   value=fund_nav
-  fmt="usd1m"
+  fmt="usd2m"
   title="Fund NAV"
 />
 
@@ -58,21 +58,21 @@ queries:
 <BigValue 
   data={fund_key_metrics} 
   value=total_commitments
-  fmt="usd1m"
+  fmt="usd2m"
   title="Total Commitments"
 />
 
 <BigValue 
   data={fund_key_metrics} 
   value=unfunded_commitment
-  fmt="usd1m"
+  fmt="usd2m"
   title="Unfunded Commitment"
 />
 
 <BigValue 
   data={fund_key_metrics} 
   value=total_distributions
-  fmt="usd1m"
+  fmt="usd2m"
   title="Total Distributions"
 />
 
@@ -96,7 +96,7 @@ queries:
   title="Fund NAV Over Time"
   x=period_end_date
   y=fund_nav
-  yFmt=usd0
+  yFmt=usd2m
 />
 
 <LineChart
@@ -120,7 +120,7 @@ queries:
   title="Total Distributions Over Time"
   x=period_end_date
   y=total_distributions
-  yFmt=usd0
+  yFmt=usd2m
 />
 
 </Grid>
@@ -135,7 +135,7 @@ queries:
   data={fund_sector_exposure}
   x=industry_name
   y=exposure
-  yFmt="usd0"
+  yFmt="usd2m"
   title="Sector Exposure"
   swapXY=true
   limit=10
@@ -145,7 +145,7 @@ queries:
   data={fund_country_exposure}
   x=country_name
   y=exposure
-  yFmt="usd0"
+  yFmt="usd2m"
   title="Country Exposure"
   swapXY=true
   limit=10
@@ -194,9 +194,9 @@ queries:
   <Column id=instrument_name title="Instrument" />
   <Column id=company_name title="Company" />
   <Column id=initial_investment_date title="Investment Date" />
-  <Column id=cumulative_invested title="Invested" fmt=usd0 />
-  <Column id=fair_value title="Fair Value" fmt=usd0 />
-  <Column id=total_value title="Total Value" fmt=usd0 />
+  <Column id=cumulative_invested title="Invested" fmt=usd2m />
+  <Column id=fair_value title="Fair Value" fmt=usd2m />
+  <Column id=total_value title="Total Value" fmt=usd2m />
   <Column id=equity_irr_approx title="IRR (Approx)" fmt=pct1 />
   <Column id=moic title="MOIC" fmt=num1 contentType=bar />
   <Column id=ownership_pct_current title="Ownership %" fmt=pct1 />
@@ -217,28 +217,28 @@ No equity holdings found for this fund.
 <BigValue 
   data={fund_key_metrics} 
   value=total_exposure
-  fmt="usd1m"
+  fmt="usd2m"
   title="Total Exposure"
 />
 
 <BigValue 
   data={fund_key_metrics} 
   value=principal_outstanding
-  fmt="usd1m"
+  fmt="usd2m"
   title="Principal Outstanding"
 />
 
 <BigValue 
   data={fund_key_metrics} 
   value=undrawn_commitment
-  fmt="usd1m"
+  fmt="usd2m"
   title="Undrawn Commitment"
 />
 
 <BigValue 
   data={fund_key_metrics} 
   value=interest_income
-  fmt="usd1m"
+  fmt="usd2m"
   title="Interest Income"
 />
 
@@ -249,21 +249,21 @@ No equity holdings found for this fund.
 <BigValue 
   data={fund_key_metrics} 
   value=total_commitments
-  fmt="usd1m"
+  fmt="usd2m"
   title="Total Commitments"
 />
 
 <BigValue 
   data={fund_key_metrics} 
   value=total_called_capital
-  fmt="usd1m"
+  fmt="usd2m"
   title="Total Called Capital"
 />
 
 <BigValue 
   data={fund_key_metrics} 
   value=total_distributions
-  fmt="usd1m"
+  fmt="usd2m"
   title="Total Distributions"
 />
 
@@ -287,7 +287,7 @@ No equity holdings found for this fund.
   title="Total Exposure Over Time"
   x=period_end_date
   y=total_exposure
-  yFmt=usd0
+  yFmt=usd2m
 />
 
 <LineChart
@@ -295,7 +295,7 @@ No equity holdings found for this fund.
   title="Principal Outstanding Over Time"
   x=period_end_date
   y=principal_outstanding
-  yFmt=usd0
+  yFmt=usd2m
 />
 
 <LineChart
@@ -303,7 +303,7 @@ No equity holdings found for this fund.
   title="Undrawn Commitment Over Time"
   x=period_end_date
   y=undrawn_commitment
-  yFmt=usd0
+  yFmt=usd2m
 />
 
 <LineChart
@@ -311,7 +311,7 @@ No equity holdings found for this fund.
   title="Interest Income Over Time"
   x=period_end_date
   y=interest_income
-  yFmt=usd0
+  yFmt=usd2m
 />
 
 </Grid>
@@ -328,7 +328,7 @@ No equity holdings found for this fund.
   data={fund_credit_maturity_ladder}
   x=maturity_year
   y=principal_maturing
-  yFmt="usd0"
+  yFmt="usd2m"
   title="Maturity Ladder"
   xAxisTitle="Maturity Year"
   yAxisTitle="Principal Maturing"
@@ -362,7 +362,7 @@ No credit portfolio data available for analysis.
   data={fund_sector_exposure}
   x=industry_name
   y=exposure
-  yFmt="usd0"
+  yFmt="usd2m"
   title="Sector Exposure"
   swapXY=true
   limit=10
@@ -372,7 +372,7 @@ No credit portfolio data available for analysis.
   data={fund_country_exposure}
   x=country_name
   y=exposure
-  yFmt="usd0"
+  yFmt="usd2m"
   title="Country Exposure"
   swapXY=true
   limit=10
@@ -391,8 +391,8 @@ No credit portfolio data available for analysis.
 <DataTable data={fund_instruments.filter(d => d.instrument_type === 'CREDIT')} rows=20>
   <Column id=instrument_name title="Instrument" />
   <Column id=company_name title="Company" />
-  <Column id=principal_outstanding title="Principal Outstanding" fmt=usd0 />
-  <Column id=undrawn_commitment title="Undrawn" fmt=usd0 />
+  <Column id=principal_outstanding title="Principal Outstanding" fmt=usd2m />
+  <Column id=undrawn_commitment title="Undrawn" fmt=usd2m />
   <Column id=spread_bps title="Spread (bps)" fmt=num0 />
   <Column id=interest_index title="Index" />
   <Column id=all_in_yield title="All-in Yield" fmt=pct1 />

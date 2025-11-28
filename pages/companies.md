@@ -42,8 +42,8 @@ Active investments across our funds.
   <Column id=company_link linkLabel=company_name title="Company Name" contentType=link />
   <Column id=primary_industry title="Industry" />
   <Column id=fund_names title="Funds" />
-  <Column id=total_exposure title="Exposure" fmt="usd1m" contentType=bar barColor=#ffe08a />
-  <Column id=revenue title="Revenue" fmt="usd1m" contentType=bar barColor=#aecfaf />
+  <Column id=total_exposure title="Exposure" fmt="usd2m" contentType=bar barColor=#ffe08a />
+  <Column id=revenue title="Revenue" fmt="usd2m" contentType=bar barColor=#aecfaf />
 </DataTable>
 
   </Tab>
@@ -79,8 +79,8 @@ Complete view of portfolio and pipeline companies.
   <Column id=company_link linkLabel=company_name title="Company Name" contentType=link />
   <Column id=primary_industry title="Industry" />
   <Column id=fund_names title="Funds" />
-  <Column id=total_exposure title="Exposure" fmt="usd1m" contentType=bar barColor=#ffe08a />
-  <Column id=revenue title="Revenue" fmt="usd1m" contentType=bar barColor=#aecfaf />
+  <Column id=total_exposure title="Exposure" fmt="usd2m" contentType=bar barColor=#ffe08a />
+  <Column id=revenue title="Revenue" fmt="usd2m" contentType=bar barColor=#aecfaf />
 </DataTable>
 
   </Tab>
@@ -127,7 +127,7 @@ Complete view of portfolio and pipeline companies.
     data={company_performance_overview}
     x=company_name
     y=revenue
-    yFmt="usd0"
+    yFmt="usd2m"
     title="Revenue by Company"
     swapXY=true
   />

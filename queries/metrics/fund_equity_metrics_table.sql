@@ -20,11 +20,11 @@ company_count as (
   where mpp.fund_id = '${params.id}'
     and mpp.instrument_type = 'EQUITY'
 )
-select 'Fund NAV' as metric, fund_nav as value, 'usd0' as format from fund_data
+select 'Fund NAV' as metric, fund_nav as value, 'usd2m' as format from fund_data
 union all select 'TVPI', tvpi, 'num1' from fund_data
 union all select 'DPI', dpi, 'num1' from fund_data
 union all select 'RVPI', rvpi, 'num1' from fund_data
-union all select 'Total Commitments', total_commitments, 'usd0' from fund_data
-union all select 'Unfunded Commitment', unfunded_commitment, 'usd0' from fund_data
-union all select 'Total Distributions', total_distributions, 'usd0' from fund_data
+union all select 'Total Commitments', total_commitments, 'usd2m' from fund_data
+union all select 'Unfunded Commitment', unfunded_commitment, 'usd2m' from fund_data
+union all select 'Total Distributions', total_distributions, 'usd2m' from fund_data
 union all select 'Portfolio Companies', (select company_count from company_count), 'num0'

@@ -69,19 +69,19 @@ from ${company_instruments}
   <BigValue 
     data={total_exposure} 
     value=total_exposure 
-    fmt=usd1m 
+    fmt=usd2m 
     title="Total Exposure"
   />
   <BigValue 
     data={total_exposure} 
     value=equity_exposure 
-    fmt=usd1m 
+    fmt=usd2m 
     title="Equity Exposure"
   />
   <BigValue 
     data={total_exposure} 
     value=credit_exposure 
-    fmt=usd1m 
+    fmt=usd2m 
     title="Credit Exposure"
   />
 </Grid>
@@ -99,9 +99,9 @@ from ${company_instruments}
   <Column id=fund_name title="Fund" />
   <Column id=initial_investment_date title="Investment Date" />
   <Column id=exit_date title="Exit Date" />
-  <Column id=cumulative_invested title="Invested" fmt=usd0 />
-  <Column id=fair_value title="Fair Value" fmt=usd0 />
-  <Column id=realized_proceeds title="Realized Proceeds" fmt=usd0 />
+  <Column id=cumulative_invested title="Invested" fmt=usd2m />
+  <Column id=fair_value title="Fair Value" fmt=usd2m />
+  <Column id=realized_proceeds title="Realized Proceeds" fmt=usd2m />
   <Column id=moic title="MOIC" fmt=num1 />
   <Column id=equity_irr_approx title="IRR (Approx)" fmt=pct1 />
   <Column id=ownership_pct_current title="Ownership %" fmt=pct1 />
@@ -130,9 +130,9 @@ No equity positions.
   <Column id=fund_name title="Fund" />
   <Column id=initial_investment_date title="Investment Date" />
   <Column id=maturity_date title="Maturity Date" />
-  <Column id=principal_outstanding title="Principal Outstanding" fmt=usd0 />
-  <Column id=undrawn_commitment title="Undrawn Commitment" fmt=usd0 />
-  <Column id=accrued_interest title="Accrued Interest" fmt=usd0 />
+  <Column id=principal_outstanding title="Principal Outstanding" fmt=usd2m />
+  <Column id=undrawn_commitment title="Undrawn Commitment" fmt=usd2m />
+  <Column id=accrued_interest title="Accrued Interest" fmt=usd2m />
   <Column id=spread_bps title="Spread (bps)" fmt=num0 />
   <Column id=interest_index title="Index" />
   <Column id=all_in_yield title="All-in Yield" fmt=pct1 />
@@ -163,7 +163,7 @@ No credit positions.
       title="Revenue Over Time"
       x=period_end_date
       y=revenue
-      yFmt=usd0
+      yFmt=usd2m
     />
   </div>
 
@@ -173,7 +173,7 @@ No credit positions.
       title="EBITDA Over Time"
       x=period_end_date
       y=ebitda
-      yFmt=usd0
+      yFmt=usd2m
     />
   </div>
 
@@ -207,15 +207,15 @@ No credit positions.
 
 <DataTable data={company_financials_table}>
   <Column id=period_end_date title="Period End Date" />
-  <Column id=revenue title="Revenue" fmt=usd0 />
-  <Column id=ebitda title="EBITDA" fmt=usd0 />
+  <Column id=revenue title="Revenue" fmt=usd2m />
+  <Column id=ebitda title="EBITDA" fmt=usd2m />
   <Column id=ebitda_margin title="EBITDA Margin" fmt=pct1 />
-  <Column id=cash title="Cash" fmt=usd0 />
-  <Column id=total_assets title="Total Assets" fmt=usd0 />
-  <Column id=total_liabilities title="Total Liabilities" fmt=usd0 />
-  <Column id=equity title="Equity" fmt=usd0 />
-  <Column id=net_debt title="Net Debt" fmt=usd0 />
-  <Column id=enterprise_value title="Enterprise Value" fmt=usd0 />
+  <Column id=cash title="Cash" fmt=usd2m />
+  <Column id=total_assets title="Total Assets" fmt=usd2m />
+  <Column id=total_liabilities title="Total Liabilities" fmt=usd2m />
+  <Column id=equity title="Equity" fmt=usd2m />
+  <Column id=net_debt title="Net Debt" fmt=usd2m />
+  <Column id=enterprise_value title="Enterprise Value" fmt=usd2m />
   <Column id=ev_to_ebitda title="EV/EBITDA" fmt=num1 />
   <Column id=ev_to_revenue title="EV/Revenue" fmt=num1 />
   <Column id=reporting_currency title="Currency" />
