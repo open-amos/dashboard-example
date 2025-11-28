@@ -1,6 +1,6 @@
 ---
 title: Reports
-sidebar_position: 5
+sidebar_position: 1
 queries:
   - funds_list: metrics/funds_list.sql
   - report_metadata: helpers/report_metadata.sql

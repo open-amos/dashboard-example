@@ -1,7 +1,7 @@
 select
     fund_id,
-    'funds/' || fund_id as fund_link,
-    'download/fund-' || fund_id as report_link,
+    'portfolio/fund-' || fund_id as fund_link,
+    'analysis/reports/fund-report-' || fund_id as report_link,
     fund_name,
     fund_type,
     fund_nav,
