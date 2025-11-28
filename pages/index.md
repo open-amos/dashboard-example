@@ -1,10 +1,15 @@
 ---
 title: Welcome to AMOS
+hide_title: true
 ---
+
+# Welcome to AMOS
 
 A sample workspace demonstrating how private market firms can bring all their data together in one unified platform. Explore the modules below to see how connected data supports faster analysis, more reliable reporting, and powerful automation.
 
-<div class="mx-auto max-w-6xl mt-8">
+<div class="section-highlight">
+
+<div class="mx-auto mt-8 mb-8">
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
     
     <a href="/portfolio" class="block rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm hover:shadow-md transition-shadow p-6 no-underline">
@@ -70,8 +75,8 @@ A sample workspace demonstrating how private market firms can bring all their da
   </div>
 </div>
 
-<hr class="my-8" />
+</div>
 
-## Fully Open-Source
+## Extensible & Open-Source
 
 AMOS is an open-source data stack designed for private market funds. It connects to your operational systems, standardizes information into a unified model, and powers any analytics layer you prefer. You may reuse and adapt this workspace, or plug in your own BI tools (Metabase, Power BI, Tableau, etc.) or custom apps and dashboards. Teams can self-host AMOS, or use it as a managed service.
