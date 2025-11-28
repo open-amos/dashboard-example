@@ -361,8 +361,20 @@ function extractTableData(tableElement, maxTableRows) {
       return text.replace(/\s+/g, ' ').trim();
     });
     
-    if (cellData.some(c => c && c.length > 0)) {
-      rows.push(cellData);
+    // Check if this is a header row with actual content
+    const hasContent = cellData.some(c => c && c.length > 0);
+    const isHeaderRow = cells.some(cell => cell.tagName.toLowerCase() === 'th');
+    
+    // Only include header rows if they have actual text content
+    if (isHeaderRow && !hasContent) {
+      continue;
+    }
+    
+    if (hasContent) {
+      rows.push({
+        data: cellData,
+        isHeader: isHeaderRow && hasContent
+      });
     }
   }
   return rows;
@@ -373,28 +385,44 @@ function createDocxTable(data) {
   
   try {
     const normalizedData = data.map(row => {
-      if (!Array.isArray(row)) return [];
-      return row.map(cell => String(cell || '').substring(0, 1000));
-    }).filter(row => row.length > 0);
+      if (!row || !Array.isArray(row.data)) return null;
+      return {
+        data: row.data.map(cell => String(cell || '').substring(0, 1000)),
+        isHeader: row.isHeader || false
+      };
+    }).filter(row => row != null && row.data.length > 0);
     
     if (normalizedData.length === 0) return null;
     
-    const maxCols = Math.max(...normalizedData.map(row => row.length));
+    const maxCols = Math.max(...normalizedData.map(row => row.data.length));
     const paddedData = normalizedData.map(row => {
-      const padded = [...row];
+      const padded = [...row.data];
       while (padded.length < maxCols) padded.push('');
-      return padded.slice(0, maxCols);
+      return {
+        data: padded.slice(0, maxCols),
+        isHeader: row.isHeader
+      };
     });
     
-    const rows = paddedData.map((rowData, rowIndex) => {
-      const isHeader = rowIndex === 0;
-      const cells = rowData.map(cellText => {
+    // Track data row index for alternating colors (excluding header rows)
+    let dataRowIndex = 0;
+    
+    const rows = paddedData.map((row) => {
+      const isHeader = row.isHeader;
+      const currentDataRowIndex = dataRowIndex;
+      
+      // Only increment data row index for non-header rows
+      if (!isHeader) {
+        dataRowIndex++;
+      }
+      
+      const cells = row.data.map(cellText => {
         return new TableCell({
           children: [new Paragraph({ 
             children: [new TextRun({ 
               text: cellText || '', 
               font: 'Arial',
-              size: 22,
+              size: 18, // 9pt font size for tables
               bold: isHeader,
               color: isHeader ? 'FFFFFF' : '000000'
             })],
@@ -402,30 +430,31 @@ function createDocxTable(data) {
           })],
           shading: isHeader ? { 
             fill: '304C89'
-          } : (rowIndex % 2 === 0 ? { fill: 'F9FAFB' } : { fill: 'FFFFFF' }),
+          } : (currentDataRowIndex % 2 === 0 ? { fill: 'F9FAFB' } : { fill: 'FFFFFF' }),
           margins: {
-            top: 100,
-            bottom: 100,
-            left: 100,
-            right: 100
+            top: 80,
+            bottom: 80,
+            left: 80,
+            right: 80
           },
           borders: {
             top: { style: BorderStyle.SINGLE, size: 1, color: 'E5E7EB' },
             bottom: { style: BorderStyle.SINGLE, size: 1, color: 'E5E7EB' },
             left: { style: BorderStyle.SINGLE, size: 1, color: 'E5E7EB' },
             right: { style: BorderStyle.SINGLE, size: 1, color: 'E5E7EB' }
-          }
+          },
+          width: { size: 100 / maxCols, type: WidthType.PERCENTAGE }
         });
       });
       return new TableRow({ 
         children: cells,
-        height: { value: 400, rule: 'atLeast' }
+        height: { value: 350, rule: 'atLeast' }
       });
     });
 
     return new Table({
       rows,
-      width: { size: 9000, type: WidthType.DXA },
+      width: { size: 100, type: WidthType.PERCENTAGE }, // Full page width
       layout: 'autofit',
       margins: {
         top: 200,
