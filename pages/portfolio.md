@@ -94,7 +94,7 @@ queries:
 
   {#each funds_list.filter(d => d.fund_type === 'EQUITY') as fund}
 
-  <a href={fund.fund_link} class="fund-card-link">
+  <a href={fund.fund_link} class="fund-card-link mb-2">
     <div class="fund-card">
       <div class="fund-header">
         <h4>{fund.fund_name}</h4>
@@ -103,7 +103,7 @@ queries:
       <div class="fund-metrics">
         <div class="metric">
           <span class="metric-label">NAV</span>
-          <span class="metric-value">${(fund.fund_nav / 1000000).toFixed(1)}M</span>
+          <span class="metric-value">${(fund.fund_nav / 1000000).toFixed(2)}M</span>
         </div>
         <div class="metric">
           <span class="metric-label">TVPI</span>

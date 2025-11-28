@@ -8,34 +8,36 @@ queries:
 
 Create, customize and export fully automated reports for funds, portfolios, and internal analysis. All reports are generated in Word format so teams can refine the content, add commentary, and tailor the final document to their audience.
 
-<hr class="my-6" />
+<div class="section-highlight">
 
-## Fund Reports (Quarterly)
+  ## Fund Reports (Quarterly)
 
-Select a fund to view and download its most recent report for LPs:
+  Select a fund to view and download its most recent report for LPs:
 
-<Grid cols=3>
+  <Grid cols=3>
 
-{#each funds_list as fund}
+  {#each funds_list as fund}
 
-<a href={fund.report_link} class="card-link">
-  <div class="fund-card">
-    <div class="fund-header">
-      <h3>{fund.fund_name}</h3>
-      <span class="fund-type {fund.fund_type}">{fund.fund_type}</span>
+  <a href={fund.report_link} class="card-link mb-2">
+    <div class="fund-card">
+      <div class="fund-header">
+        <h3>{fund.fund_name}</h3>
+        <span class="fund-type {fund.fund_type}">{fund.fund_type}</span>
+      </div>
+      <div class="report-quarter">
+        {report_metadata[0].quarter_label}
+      </div>
+      <div class="fund-action">
+        View Report →
+      </div>
     </div>
-    <div class="report-quarter">
-      {report_metadata[0].quarter_label}
-    </div>
-    <div class="fund-action">
-      View Report →
-    </div>
-  </div>
-</a>
+  </a>
 
-{/each}
+  {/each}
 
-</Grid>
+  </Grid>
+
+</div>
 
 <style>
   .card-link {
