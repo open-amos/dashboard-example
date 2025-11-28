@@ -3,8 +3,60 @@
 	import '../app.css';
 	import { EvidenceDefaultLayout } from '@evidence-dev/core-components';
 	import { base } from '$app/paths';
+	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
 	import ExportToWordMenuItem from '$lib/ExportToWordMenuItem.svelte';
 	export let data;
+
+	// Mark active navigation links
+	onMount(() => {
+		const updateActiveLinks = () => {
+			const currentPath = $page.url.pathname;
+			
+			// Try multiple selectors to find the nav links
+			let navLinks = document.querySelectorAll('nav a');
+			if (navLinks.length === 0) {
+				navLinks = document.querySelectorAll('aside a');
+			}
+			if (navLinks.length === 0) {
+				navLinks = document.querySelectorAll('a[href^="/"]');
+			}
+			
+			navLinks.forEach(link => {
+				link.classList.remove('active');
+				const href = link.getAttribute('href');
+				const linkText = link.textContent?.trim();
+								
+				if (href && (currentPath === href || currentPath.startsWith(href + '/'))) {
+					// Check if this is the most specific match
+					const isExactMatch = currentPath === href;
+					const isParentMatch = currentPath.startsWith(href + '/');
+					
+					console.log(`    Match found! Exact: ${isExactMatch}, Parent: ${isParentMatch}`);
+					
+					if (isExactMatch || (isParentMatch && href !== base && href !== base + '/')) {
+						link.classList.add('active');
+						console.log(`    ✅ Added active class to "${linkText}"`);
+					}
+				}
+			});
+		};
+		
+		// Wait for DOM to be fully rendered
+		setTimeout(() => {
+			updateActiveLinks();
+		}, 200);
+		
+		// Also try immediately
+		updateActiveLinks();
+		
+		// Update on navigation
+		const unsubscribe = page.subscribe(() => {
+			setTimeout(updateActiveLinks, 100);
+		});
+
+		return unsubscribe;
+	});
 </script>
 
 <EvidenceDefaultLayout
@@ -13,7 +65,6 @@
 	neverShowQueries={true}
 	fullWidth=true
 	hideTOC=true
-  homePageName=Portfolio
 	githubRepo="https://github.com/open-amos">
 	<slot slot="content" />
 </EvidenceDefaultLayout>
@@ -164,12 +215,125 @@
     margin-bottom: 10px;
   }
 
-  /* Tab cursor fix - must be last to override other styles */
+  /* Tab cursor fix */
   :global(button) {
     cursor: pointer !important;
   }
   
   :global(a) {
     cursor: pointer !important;
+  }
+
+  /* Modern SaaS Sidebar Styling */
+  
+  /* Sidebar navigation links - multiple selectors for specificity */
+  :global(nav a:not(.top-0)),
+  :global(aside nav a:not(.top-0)),
+  :global(aside a:not(.top-0)) {
+    position: relative !important;
+    padding: 0.175rem 0.75rem !important;
+    margin: 0.125rem !important;
+    margin-right: 1rem !important;
+    border-radius: 0.5rem !important;
+    transition: all 0.15s ease !important;
+    font-weight: 500 !important;
+    color: #6b7280 !important;
+    text-decoration: none !important;
+  }
+
+  :global(nav a:not(.top-0):hover),
+  :global(aside nav a:not(.top-0):hover),
+  :global(aside a:not(.top-0):hover) {
+    background-color: #f3f4f6 !important;
+    color: #111827 !important;
+  }
+
+  /* Active page styling - high specificity, excluding .top-0 */
+  :global(nav a[aria-current="page"]:not(.top-0)),
+  :global(nav a.active:not(.top-0)),
+  :global(aside nav a[aria-current="page"]:not(.top-0)),
+  :global(aside nav a.active:not(.top-0)),
+  :global(aside a[aria-current="page"]:not(.top-0)),
+  :global(aside a.active:not(.top-0)),
+  :global(a.active:not(.top-0)) {
+    background-color: #eff6ff !important;
+    color: #2563eb !important;
+    font-weight: 600 !important;
+  }
+
+  /* Active indicator bar - excluding .top-0 */
+  :global(nav a[aria-current="page"]:not(.top-0)::before),
+  :global(nav a.active:not(.top-0)::before),
+  :global(aside nav a[aria-current="page"]:not(.top-0)::before),
+  :global(aside nav a.active:not(.top-0)::before),
+  :global(aside a[aria-current="page"]:not(.top-0)::before),
+  :global(aside a.active:not(.top-0)::before),
+  :global(a.active:not(.top-0)::before) {
+    content: '' !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 3px !important;
+    height: 60% !important;
+    border-radius: 0 2px 2px 0 !important;
+  }
+
+  /* Section headers in sidebar */
+  :global(nav details summary) {
+    font-weight: 600 !important;
+    color: #374151 !important;
+    padding: 0.5rem 0.75rem !important;
+    margin: 0.25rem 0.5rem !important;
+    font-size: 0.75rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+  }
+
+  /* Nested navigation items */
+  :global(nav details a) {
+    padding-left: 1.5rem !important;
+    font-size: 0.875rem !important;
+  }
+
+  /* Dark mode sidebar */
+  :global(.dark nav a) {
+    color: #9ca3af !important;
+  }
+
+  :global(.dark nav a:hover) {
+    background-color: #374151 !important;
+    color: #f3f4f6 !important;
+  }
+
+  :global(.dark nav a[aria-current="page"]),
+  :global(.dark nav a.active) {
+    background-color: #1e3a8a !important;
+    color: #93c5fd !important;
+  }
+
+  :global(.dark nav a[aria-current="page"]::before),
+  :global(.dark nav a.active::before) {
+    background-color: #60a5fa;
+  }
+
+  :global(.dark nav details summary) {
+    color: #d1d5db !important;
+  }
+
+  /* Sidebar container styling */
+  :global(aside nav) {
+    padding: 0.5rem 0 !important;
+  }
+
+  /* Remove default list styling */
+  :global(nav ul) {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  :global(nav li) {
+    margin: 0 !important;
   }
 </style>
