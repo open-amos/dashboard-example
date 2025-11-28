@@ -167,9 +167,11 @@ This is a short report example. Report templates can be customized and extended.
 
     ## Key Metrics
 
+    ### Capital Deployment & Performance
+
     <DataTable data={credit_metrics_table} rows=all class="no-header-row">
       <Column id=metric title=" " />
-      <Column id=value title=" " fmt=usd2m />
+      <Column id=value title=" " />
     </DataTable>
 
     <hr class="my-4" />
@@ -178,7 +180,7 @@ This is a short report example. Report templates can be customized and extended.
 
     <LineChart
       data={fund_metrics_timeseries}
-      title="Total Exposure Over Time"
+      title="Facility Commitments Over Time"
       x=period_end_date
       y=total_exposure
       yFmt=usd2m
@@ -194,7 +196,7 @@ This is a short report example. Report templates can be customized and extended.
 
     <LineChart
       data={fund_metrics_timeseries}
-      title="Undrawn Commitment Over Time"
+      title="Undrawn Facilities Over Time"
       x=period_end_date
       y=undrawn_commitment
       yFmt=usd2m

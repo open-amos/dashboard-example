@@ -110,7 +110,7 @@ queries:
   }
 </style>
 
-<Tabs color=primary>
+<Tabs color=primary id=fund_type>
 
 {#if equity_portfolio_metrics.length > 0}
 
@@ -411,54 +411,54 @@ queries:
   <Grid cols=4>
     <BigValue 
       data={credit_portfolio_metrics} 
-      value=total_exposure
+      value=lp_commitments
       fmt="usd2m"
-      title="Total Exposure"
+      title="LP Commitments"
     />
     <BigValue 
       data={credit_portfolio_metrics} 
-      value=total_principal_outstanding
+      value=called_capital
+      fmt="usd2m"
+      title="Called Capital"
+    />
+    <BigValue 
+      data={credit_portfolio_metrics} 
+      value=facility_commitments
+      fmt="usd2m"
+      title="Facility Commitments"
+    />
+    <BigValue 
+      data={credit_portfolio_metrics} 
+      value=principal_outstanding
       fmt="usd2m"
       title="Principal Outstanding"
-    />
-    <BigValue 
-      data={credit_portfolio_metrics} 
-      value=total_undrawn_commitment
-      fmt="usd2m"
-      title="Undrawn Commitment"
-    />
-    <BigValue 
-      data={credit_portfolio_metrics} 
-      value=total_interest_income
-      fmt="usd2m"
-      title="Interest Income"
     />
   </Grid>
 
   <Grid cols=4>
     <BigValue 
       data={credit_portfolio_metrics} 
-      value=total_commitments
+      value=undrawn_facilities
       fmt="usd2m"
-      title="Total Commitments"
+      title="Undrawn Facilities"
     />
     <BigValue 
       data={credit_portfolio_metrics} 
-      value=number_of_credit_funds
-      fmt="num0"
-      title="Credit Funds"
+      value=cash_and_reserves
+      fmt="usd2m"
+      title="Cash & Reserves"
     />
     <BigValue 
       data={credit_portfolio_metrics} 
-      value=total_positions
-      fmt="num0"
-      title="Credit Positions"
+      value=facility_utilization_rate
+      fmt="pct1"
+      title="Facility Utilization"
     />
     <BigValue 
       data={credit_portfolio_metrics} 
-      value=total_portfolio_companies
-      fmt="num0"
-      title="Portfolio Companies"
+      value=total_interest_income
+      fmt="usd2m"
+      title="Interest Income"
     />
   </Grid>
 
@@ -470,7 +470,7 @@ queries:
 
   {#each funds_list.filter(d => d.fund_type === 'CREDIT') as fund}
 
-  <a href={fund.fund_link} class="fund-card-link">
+  <a href={fund.fund_link} class="fund-card-link mb-2">
     <div class="fund-card">
       <div class="fund-header">
         <h4>{fund.fund_name}</h4>
@@ -478,16 +478,16 @@ queries:
       </div>
       <div class="fund-metrics">
         <div class="metric">
-          <span class="metric-label">Exposure</span>
+          <span class="metric-label">LP Commitments</span>
+          <span class="metric-value">${(fund.total_commitments / 1000000).toFixed(1)}M</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Facilities</span>
           <span class="metric-value">${(fund.total_exposure / 1000000).toFixed(1)}M</span>
         </div>
         <div class="metric">
-          <span class="metric-label">Principal</span>
+          <span class="metric-label">Principal O/S</span>
           <span class="metric-value">${(fund.principal_outstanding / 1000000).toFixed(1)}M</span>
-        </div>
-        <div class="metric">
-          <span class="metric-label">Undrawn</span>
-          <span class="metric-value">${(fund.undrawn_commitment / 1000000).toFixed(1)}M</span>
         </div>
         <div class="metric">
           <span class="metric-label">Positions</span>

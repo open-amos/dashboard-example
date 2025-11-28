@@ -232,7 +232,7 @@ queries:
       <Column id=instrument_name title="Instrument" />
       <Column id=company_name title="Company" />
       <Column id=initial_investment_date title="Investment Date" />
-      <Column id=cumulative_invested title="Invested" fmt=usd2m />
+      <Column id=cost_basis title="Cost Basis" fmt=usd2m />
       <Column id=fair_value title="Fair Value" fmt=usd2m />
       <Column id=total_value title="Total Value" fmt=usd2m />
       <Column id=equity_irr_approx title="IRR (Approx)" fmt=pct1 />
@@ -254,13 +254,29 @@ queries:
 
 ## Key Metrics - Private Credit
 
+### Capital Deployment
+
 <Grid cols=4>
+
+<BigValue 
+  data={fund_key_metrics} 
+  value=total_commitments
+  fmt="usd2m"
+  title="LP Commitments"
+/>
+
+<BigValue 
+  data={fund_key_metrics} 
+  value=total_called_capital
+  fmt="usd2m"
+  title="Called Capital"
+/>
 
 <BigValue 
   data={fund_key_metrics} 
   value=total_exposure
   fmt="usd2m"
-  title="Total Exposure"
+  title="Facility Commitments"
 />
 
 <BigValue 
@@ -270,11 +286,15 @@ queries:
   title="Principal Outstanding"
 />
 
+</Grid>
+
+<Grid cols=4>
+
 <BigValue 
   data={fund_key_metrics} 
   value=undrawn_commitment
   fmt="usd2m"
-  title="Undrawn Commitment"
+  title="Undrawn Facilities"
 />
 
 <BigValue 
@@ -282,24 +302,6 @@ queries:
   value=interest_income
   fmt="usd2m"
   title="Interest Income"
-/>
-
-</Grid>
-
-<Grid cols=4>
-
-<BigValue 
-  data={fund_key_metrics} 
-  value=total_commitments
-  fmt="usd2m"
-  title="Total Commitments"
-/>
-
-<BigValue 
-  data={fund_key_metrics} 
-  value=total_called_capital
-  fmt="usd2m"
-  title="Total Called Capital"
 />
 
 <BigValue 
@@ -313,7 +315,7 @@ queries:
   data={credit_positions_count} 
   value=position_count
   fmt="num0"
-  title="Number of Positions"
+  title="Positions"
 />
 
 </Grid>
@@ -328,7 +330,7 @@ queries:
 
       <LineChart
         data={fund_metrics_timeseries}
-        title="Total Exposure Over Time"
+        title="Facility Commitments Over Time"
         x=period_end_date
         y=total_exposure
         yFmt=usd2m
@@ -352,7 +354,7 @@ queries:
 
       <LineChart
         data={fund_metrics_timeseries}
-        title="Undrawn Commitment Over Time"
+        title="Undrawn Facilities Over Time"
         x=period_end_date
         y=undrawn_commitment
         yFmt=usd2m
