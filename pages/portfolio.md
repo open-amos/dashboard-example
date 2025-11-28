@@ -1,6 +1,7 @@
 ---
 title: Portfolio
 sidebar_position: 1
+hide_title: true
 queries:
   - equity_portfolio_metrics: metrics/equity_portfolio_metrics.sql
   - equity_portfolio_timeseries: metrics/equity_portfolio_timeseries.sql
@@ -54,6 +55,8 @@ queries:
   </div>
 </div>
 {/if}
+
+# Portfolio
 
 <style>
   .onboarding-alert {
