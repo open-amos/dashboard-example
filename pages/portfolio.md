@@ -24,6 +24,89 @@ queries:
   - funds: dimensions/funds.sql
 ---
 
+<script>
+  import { fade, slide } from 'svelte/transition';
+  
+  let showAlert = true;
+  
+  function dismissAlert() {
+    showAlert = false;
+  }
+</script>
+
+{#if showAlert}
+<div class="onboarding-alert" transition:slide={{ duration: 300 }}>
+  <div class="alert-content" transition:fade={{ duration: 200 }}>
+    <div class="alert-icon">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM11 15H9V13H11V15ZM11 11H9V5H11V11Z" fill="white"/>
+      </svg>
+    </div>
+    <div class="alert-text">
+      <strong>Welcome to AMOS!</strong> 
+      AMOS is the modern, open-source data stack for private funds—centralizing data from your existing systems and enabling 360° analytics, reporting, and automation. This workspace uses sample data and runs on AMOS Core (data foundation) and AMOS Insights (analytics and automation). Both layers are lightweight and extensible. AMOS Insights is optional; AMOS Core can run on its own alongside your internal tools or BI platforms. Explore the workspace to see how the stack fits together.
+    </div>
+    <button class="alert-dismiss" on:click={dismissAlert}>
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="white"/>
+      </svg>
+    </button>
+  </div>
+</div>
+{/if}
+
+<style>
+  .onboarding-alert {
+    background-color: #4F39F5;
+    border-radius: 0.5rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .alert-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: white;
+  }
+  
+  .alert-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .alert-text {
+    flex: 1;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  
+  .alert-text strong {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  
+  .alert-dismiss {
+    flex-shrink: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+  
+  .alert-dismiss:hover {
+    opacity: 1;
+  }
+</style>
+
 <Tabs color=primary>
 
 {#if equity_portfolio_metrics.length > 0}
