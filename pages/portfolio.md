@@ -44,8 +44,8 @@ queries:
       </svg>
     </div>
     <div class="alert-text">
-      <strong>Welcome to AMOS!</strong> 
-      AMOS is the modern, open-source data stack for private funds—centralizing data from your existing systems into a single source of truth and enabling 360° analytics, reporting, and automation. This workspace uses sample data for a virtual firm managing private equity and private credit funds. It runs on AMOS Core (data foundation) and AMOS Insights (analytics and automation), both lightweight and extensible. AMOS Insights is optional; AMOS Core can run on its own alongside your internal tools or BI platforms. Explore the workspace to see how the stack fits together.
+      <h3 class="markdown text-white">Welcome to AMOS, the open-source data platform for private-market funds.</h3> 
+      This demo uses sample data from a virtual private equity and private credit firm. It shows how AMOS consolidates scattered spreadsheets and portals—CRM, fund administration, accounting, portfolio company financials—into a reliable data foundation for faster reporting and sharper insights. You can deploy AMOS as is or extend it with your own sources, workflows, and tools.
     </div>
     <button class="alert-dismiss" on:click={dismissAlert}>
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -110,7 +110,7 @@ queries:
   }
 </style>
 
-<Tabs color=primary id=fund_type>
+<Tabs color=primary>
 
 {#if equity_portfolio_metrics.length > 0}
 
