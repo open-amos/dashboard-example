@@ -18,7 +18,7 @@ Create, customize and export fully automated reports for funds, portfolios, and 
 
   {#each funds_list as fund}
 
-  <a href={fund.report_link} class="card-link mb-2">
+  <a href=/{fund.report_link} class="card-link mb-2">
     <div class="fund-card">
       <div class="fund-header">
         <h3>{fund.fund_name}</h3>
