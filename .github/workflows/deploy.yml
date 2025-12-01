@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: 'main' # or whichever branch you want to deploy from
+    branches: 'main'
 
 jobs:
   build:
@@ -12,6 +12,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
@@ -23,8 +24,7 @@ jobs:
 
       - name: build
         env:
-          BASE_PATH: '/${{ github.event.repository.name }}'
-          ## Add and uncomment any environment variables here
+          # plus all your EVIDENCE_SOURCE__... secrets
           EVIDENCE_SOURCE__needful_things__filename: ${{ secrets.EVIDENCE_SOURCE__needful_things__filename }}
           EVIDENCE_SOURCE__postgres__database: ${{ secrets.EVIDENCE_SOURCE__postgres__database }}
           EVIDENCE_SOURCE__postgres__host: ${{ secrets.EVIDENCE_SOURCE__postgres__host }}
@@ -36,23 +36,24 @@ jobs:
           npm run sources
           npm run build
 
+      - name: Add CNAME file
+        run: |
+          echo "demo.amos.tech" > build/CNAME
+
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'build/${{ github.event.repository.name }}'
+          path: 'build'
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
-
     permissions:
       pages: write
       id-token: write
-
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
       - name: Deploy
         id: deployment
