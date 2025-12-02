@@ -25,16 +25,6 @@ Then open the local URL printed by the dev server.
 
 AMOS is open source and welcomes contributions. Report bugs, suggest features, add integration patterns, or submit pull requests.
 
-## Support
-
-- **Documentation**: [docs.amos.tech](https://docs.amos.tech)
-- **Issues**: GitHub Issues
-
-## Related Projects
-- **[AMOS Starter](../starter)** - Coordinator and entry point
-- **[AMOS Core](../core)** - Canonical dimensional model
-- **[AMOS Source Example](../source-example)** - Source integration patterns
-
 ## Licensing
 
 This subproject is part of the AMOS public preview. Licensing terms will be finalized before version 1.0.
