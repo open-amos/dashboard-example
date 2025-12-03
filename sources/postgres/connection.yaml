@@ -8,8 +8,10 @@ options:
   # Evidence automatically looks for environment variables following this pattern:
   # EVIDENCE_SOURCE__[source_name]__[option_name]
   # -----------------------------------------------------------
-  host: "postgres"        # Matches your docker-compose service name
+  host: "postgres"        # Matches the docker-compose service name
   port: 5432
   database: "amos_db"
-  schema: "public_metrics" # The fix for your table visibility
+  schema: "public_metrics" 
   ssl: false
+  user: "amos"            # Credentials for development use only in Docker environment
+  password: "password"    # Credentials for development use only in Docker environment
