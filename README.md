@@ -36,9 +36,11 @@ If you prefer to run this in your own environment without Docker:
 
 Then open the local URL printed by the dev server.
 
-## Contributing
+## Demo
 
-AMOS is open source and welcomes contributions. Report bugs, suggest features, add integration patterns, or submit pull requests.
+Explore a live dashboard built on top of the AMOS architecture.
+[**→ View live demo**](https://demo.amos.tech)
+![image](https://amos.tech/wp-content/uploads/2025/04/screely-1764599384361-2048x1175.png)
 
 ## Licensing
 
