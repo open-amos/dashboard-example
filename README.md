@@ -28,11 +28,12 @@ docker-compose up -d
 ```
 If you prefer to run this in your own environment without Docker:
 
-1. Git clone this repository
-2. Configure your database connection details in `sources/**/connection.yaml`
-3. Run `npm install` to install the dependencies
-4. Run `npm run sources` to install the sources
-4. Run `npm run dev` to start the development server
+1. Install [Amos](https://github.com/open-amos/amos) manually
+2. Git clone this repository
+3. Configure your database connection details in `sources/**/connection.yaml`
+4. Run `npm install` to install the dependencies
+5. Run `npm run sources` to install the sources
+6. Run `npm run dev` to start the development server
 
 Then open the local URL printed by the dev server.
 
